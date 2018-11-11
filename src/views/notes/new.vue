@@ -14,7 +14,7 @@
             
             <div class="fields">
                 <div class="form-group">
-                    <label for="title">Título</label>
+                    <label for="title">Título (*)</label>
                     <input id="title" type="text" class="form-control" v-model="note.title">
                 </div>
                 <div class="form-group">
@@ -24,7 +24,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="description">Descripción</label>
+                    <label for="description">Descripción (*)</label>
                     <textarea id="description" class="form-control" v-model="note.description"></textarea>
                 </div>
             </div>
@@ -62,21 +62,32 @@ export default {
         this.getCategories();
     },
     methods:{
+        validation(){
+            let valid = this.note.title.toString().trim() == '' || this.note.description.toString().trim() == '' ? false : true
+            return valid
+        },
         add(){
-            noteServices.post(this.note).then(response => {
-                 sysMsg.toastMsg('success', 'Nota agregada');
-                this.note = {
-                    title:'',
-                    description:'',
-                    category: {
-                        title:'Sin categoría',
-                        icon:'http://placehold.it/64x64'
-                    },
-                    created_at: now
-                }
-            }).catch(err => {
-                sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err );
-            });
+            
+            if(this.validation()){
+                
+                    noteServices.post(this.note).then(response => {
+                        sysMsg.toastMsg('success', 'Nota agregada');
+                        this.note = {
+                            title:'',
+                            description:'',
+                            category: {
+                                title:'Sin categoría',
+                                icon:'http://placehold.it/64x64'
+                            },
+                            created_at: now
+                        }
+                    }).catch(err => {
+                        sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err );
+                    });
+
+            } else {
+                 sysMsg.toastMsg('warning', 'Rellena los cambos requeridos.');
+            }
         },
         getCategories(){
             categoryServices.getAll().then(response =>{

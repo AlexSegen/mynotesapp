@@ -45,6 +45,10 @@ export default {
         this.getItem();
     },
     methods:{
+        validation(){
+            let valid = this.category.title.toString().trim() == '' ? false : true
+            return valid
+        },
         getItem(){
             categoryServices.get(this.$route.params.id).then(response => {
                 this.category = response.data;
@@ -60,12 +64,16 @@ export default {
             });
         },
         updateItem(){
-           categoryServices.put(this.$route.params.id, this.category).then(response => {
-                sysMsg.toastMsg('info', 'Categoría actualizada con éxito');
-                this.category = response.data;    
-            }).catch(err => {
-                sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
-            });
+            if(this.validation()){ 
+            categoryServices.put(this.$route.params.id, this.category).then(response => {
+                    sysMsg.toastMsg('info', 'Categoría actualizada con éxito');
+                    this.category = response.data;    
+                }).catch(err => {
+                    sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
+                });
+            } else {
+                sysMsg.toastMsg('warning', 'El campo Título es requerido.');
+            }
         }
     }
 

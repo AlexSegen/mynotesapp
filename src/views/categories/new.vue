@@ -26,8 +26,8 @@
 
 <script>
 import moment from 'moment'
-import categoryServices from '@/services/category.services';
 import sysMsg from '@/helpers/sys.messages.js' 
+import categoryServices from '@/services/category.services';
 let now = moment();
 export default {
     name:'newCategory',
@@ -41,7 +41,12 @@ export default {
         }
     },
     methods:{
+        validation(){
+            let valid = this.category.title.toString().trim() == '' ? false : true
+            return valid
+        },
         add(){
+            if(this.validation()){
             categoryServices.post(this.category).then(response => {
                  sysMsg.toastMsg('success', 'Categoría agregada');
                 this.category = {
@@ -52,6 +57,10 @@ export default {
             }).catch(err => {
                 sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err );
             });
+            } else {
+                sysMsg.toastMsg('warning', 'El campo Título es requerido.');
+            }
+
         }
     }
 
