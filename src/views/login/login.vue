@@ -43,11 +43,7 @@ export default {
     },
     methods: {
         login(){
-            Auth.login(this.payload).then(response => {
-                this.$router.push('/');
-            }).catch(err => {
-                sysMsgs.toastMsg('error', 'Error. Intenta de nuevo.')
-            });
+            Auth.login(this.payload);
         }
     }
 

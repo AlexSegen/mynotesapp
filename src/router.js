@@ -29,17 +29,26 @@ const router = new Router({
     {
       path: "/",
       name: "notes",
-      component: Notes
+      component: Notes,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/notes/new",
       name: "newnote",
-      component: newNote
+      component: newNote,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/notes/:id",
       name: "editnote",
-      component: editNote
+      component: editNote,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/categories",
@@ -52,12 +61,18 @@ const router = new Router({
     {
       path: "/categories/new",
       name: "newcategory",
-      component: newCategory
+      component: newCategory,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/categories/:id",
       name: "editcategory",
-      component: editCategory
+      component: editCategory,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/about",
