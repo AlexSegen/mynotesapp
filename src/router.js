@@ -1,69 +1,89 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 
 //Views
-import Login from './views/login/login.vue'
-import Home from './views/Home.vue'
-import Notes from './views/notes/index.vue'
-import newNote from './views/notes/new.vue'
-import editNote from './views/notes/edit.vue'
-import Categories from './views/categories/index.vue'
-import editCategory from './views/categories/edit.vue'
-import newCategory from './views/categories/new.vue'
+import Login from "./views/login/login.vue";
+import Home from "./views/Home.vue";
+import Notes from "./views/notes/index.vue";
+import newNote from "./views/notes/new.vue";
+import editNote from "./views/notes/edit.vue";
+import Categories from "./views/categories/index.vue";
+import editCategory from "./views/categories/edit.vue";
+import newCategory from "./views/categories/new.vue";
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
+  mode: "history",
   routes: [
     {
-      path: '/login',
-      name: 'login',
+      path: "/login",
+      name: "login",
       component: Login
     },
     {
-      path: '/home',
-      name: 'home',
+      path: "/home",
+      name: "home",
       component: Home
     },
     {
-      path: '/',
-      name: 'notes',
+      path: "/",
+      name: "notes",
       component: Notes
     },
     {
-      path: '/notes/new',
-      name: 'newnote',
+      path: "/notes/new",
+      name: "newnote",
       component: newNote
     },
     {
-      path: '/notes/:id',
-      name: 'editnote',
+      path: "/notes/:id",
+      name: "editnote",
       component: editNote
     },
     {
-      path: '/categories',
-      name: 'categories',
-      component: Categories
+      path: "/categories",
+      name: "categories",
+      component: Categories,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
-      path:'/categories/new',
-      name: 'newcategory',
+      path: "/categories/new",
+      name: "newcategory",
       component: newCategory
     },
     {
-      path: '/categories/:id',
-      name: 'editcategory',
+      path: "/categories/:id",
+      name: "editcategory",
       component: editCategory
     },
     {
-      path: '/about',
-      name: 'about',
+      path: "/about",
+      name: "about",
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/About.vue")
     }
   ]
-})
- export default router
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("login") == null) {
+      next({
+        path: "/login",
+        params: { nextUrl: to.fullPath }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

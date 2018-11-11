@@ -12,7 +12,15 @@ export default {
         window.location.href = '/login'
     },
     getUser(){
-        let user = localStorage.getItem('login');
+        let user = {};
+        if (localStorage.getItem("login") == null) {
+             user =  JSON.stringify(localStorage.getItem('login'));
+          } else {
+            user = {
+                name: 'Usuario',
+                token: 'nulo'
+            }
+          }
         return user;
     }
 
