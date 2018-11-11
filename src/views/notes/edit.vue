@@ -47,7 +47,7 @@ import noteServices from '@/services/note.services'
 import categoryServices from '@/services/category.services';
 let now = moment().format('LLLL');
 export default {
-    name:'newNote',
+    name:'editNote',
     data(){
         return {
             note:{
@@ -110,7 +110,3 @@ export default {
 
 }
 </script>
-
-<style>
-
-</style>

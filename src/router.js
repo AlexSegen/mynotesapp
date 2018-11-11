@@ -5,6 +5,8 @@ import Notes from './views/notes/index.vue'
 import newNote from './views/notes/new.vue'
 import editNote from './views/notes/edit.vue'
 import Categories from './views/categories/index.vue'
+import editCategory from './views/categories/edit.vue'
+import newCategory from './views/categories/new.vue'
 
 Vue.use(Router)
 
@@ -35,6 +37,16 @@ export default new Router({
       path: '/categories',
       name: 'categories',
       component: Categories
+    },
+    {
+      path:'/categories/new',
+      name: 'newcategory',
+      component: newCategory
+    },
+    {
+      path: '/categories/:id',
+      name: 'editcategory',
+      component: editCategory
     },
     {
       path: '/about',

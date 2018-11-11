@@ -23,6 +23,18 @@
       },
       "created_at": "2018-11-11T01:56:05.381Z",
       "id": 2
+    },
+    {
+      "title": "Comprar jugo",
+      "description": "Comprar jugos, tang o naturales.",
+      "category": {
+        "title": "Comida",
+        "icon": "http://placehold.it/64x64",
+        "created_at": "2018-11-11T14:36:36.729Z",
+        "id": 5
+      },
+      "created_at": "2018-11-11T14:36:36.719Z",
+      "id": 3
     }
   ],
   "categories": [
@@ -46,9 +58,15 @@
     },
     {
       "id": 4,
-      "title": "Gastos",
+      "title": "Gastos comunes",
       "icon": "http://placehold.it/64x64",
       "created_at": "Nov 10th 18"
+    },
+    {
+      "title": "Comida",
+      "icon": "http://placehold.it/64x64",
+      "created_at": "2018-11-11T14:36:36.729Z",
+      "id": 5
     }
   ]
 }
