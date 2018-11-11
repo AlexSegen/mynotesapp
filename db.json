@@ -1,0 +1,54 @@
+{
+  "notes": [
+    {
+      "title": "Titulo de test",
+      "description": "testteame beibe yes",
+      "category": {
+        "id": 1,
+        "title": "Juegos",
+        "icon": "http://placehold.it/64x64",
+        "created_at": "Nov 10th 18"
+      },
+      "created_at": "2018-11-11T01:37:13.747Z",
+      "id": 1
+    },
+    {
+      "title": "Hola",
+      "description": "Mi nota 5",
+      "category": {
+        "id": 1,
+        "title": "Juegos",
+        "icon": "http://placehold.it/64x64",
+        "created_at": "Nov 10th 18"
+      },
+      "created_at": "2018-11-11T01:56:05.381Z",
+      "id": 2
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "title": "Juegos",
+      "icon": "http://placehold.it/64x64",
+      "created_at": "Nov 10th 18"
+    },
+    {
+      "id": 2,
+      "title": "Trabajo",
+      "icon": "http://placehold.it/64x64",
+      "created_at": "Nov 10th 18"
+    },
+    {
+      "id": 3,
+      "title": "Ocio",
+      "icon": "http://placehold.it/64x64",
+      "created_at": "Nov 10th 18"
+    },
+    {
+      "id": 4,
+      "title": "Gastos",
+      "icon": "http://placehold.it/64x64",
+      "created_at": "Nov 10th 18"
+    }
+  ]
+}

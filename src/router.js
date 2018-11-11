@@ -1,15 +1,40 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Notes from './views/notes/index.vue'
+import newNote from './views/notes/new.vue'
+import editNote from './views/notes/edit.vue'
+import Categories from './views/categories/index.vue'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/',
+      name: 'notes',
+      component: Notes
+    },
+    {
+      path: '/notes/new',
+      name: 'newnote',
+      component: newNote
+    },
+    {
+      path: '/notes/:id',
+      name: 'editnote',
+      component: editNote
+    },
+    {
+      path: '/categories',
+      name: 'categories',
+      component: Categories
     },
     {
       path: '/about',
