@@ -1,21 +1,27 @@
 import axios from 'axios';
 import sysMsgs from '@/helpers/sys.messages';
 //let API = 'https://reqres.in/api/login'
-let API = 'http://localhost:5000/login';
+let API = 'http://localhost:3000/login';
 export default {
 
     login(data){
        return axios.post(API, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
-            localStorage.setItem('user', JSON.stringify(data.email));
             window.location.href = '/'
         }).catch(err => {
-            sysMsgs.toastMsg('error', 'Error. Intenta de nuevo.')
+            if(err.response.status == 401) {
+                sysMsgs.toastMsg('error', 'Datos incorrectos');
+            } else if (err.response.status == 404){ 
+                sysMsgs.toastMsg('error', 'Usuario no encontrado');
+            } else if (err.response.status == 500){ 
+                sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
+            } else {
+                sysMsgs.toastMsg('error', 'Ocurrió un error. Reintenta mas tarde.');
+            }
         });
     },
     logout(){
         localStorage.removeItem('login');
-        localStorage.removeItem('user');
         window.location.href = '/login'
     },
     loggedIn(){
@@ -23,24 +29,25 @@ export default {
         return loggedIn;
     },
     getToken(){
-        let user = {};
+        let data = '';
         if (localStorage.getItem("login") == null) {
             console.log('No token found');
           } else {
-            token =  JSON.parse(localStorage.getItem('login'));
+            data =  JSON.parse(localStorage.getItem('login'));
           }
-        return token;
+        return data.token;
     },
     getUser(){
-        let user = {};
-        if (localStorage.getItem("user") == null) {
-            user = {
+        let data = {};
+        if (localStorage.getItem("login") == null) {
+            data.user = {
+                name: null,
                 email: null
             }
           } else {
-            user =  JSON.parse(localStorage.getItem('user'));
+            data =  JSON.parse(localStorage.getItem('login'));
           }
-        return user;
+        return data.user;
     }
 
 }

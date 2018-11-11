@@ -94,7 +94,15 @@ router.beforeEach((to, from, next) => {
         params: { nextUrl: to.fullPath }
       });
     } else {
-      next();
+      let data = JSON.parse(localStorage.getItem('login'));
+      if (data.auth){
+        next();
+      } else {
+        next({
+          path: "/login",
+          params: { nextUrl: to.fullPath }
+        });
+      }
     }
   } else {
     next();

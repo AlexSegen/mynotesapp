@@ -6,7 +6,7 @@
       <b-navbar-nav>
         <b-nav-item :to="{ name: 'notes'  }">Notas</b-nav-item>
         <b-nav-item :to="{ name: 'categories'  }">Categorías</b-nav-item>
-        <b-nav-item-dropdown :text="user" right>
+        <b-nav-item-dropdown :text="user.name" right>
           <b-dropdown-item href="#">Mi Cuenta</b-dropdown-item>
           <b-dropdown-item href="#">Configuración</b-dropdown-item>
           <b-dropdown-item href="javascript:void(0);" @click="logout()">Cerrar sesión</b-dropdown-item>
