@@ -9,7 +9,7 @@
         <b-nav-item-dropdown text="Cuenta" right>
           <b-dropdown-item href="#">Mi Cuenta</b-dropdown-item>
           <b-dropdown-item href="#">Settings</b-dropdown-item>
-          <b-dropdown-item href="#">Cerrar sesión</b-dropdown-item>
+          <b-dropdown-item href="javascript:void(0);" @click="logout()">Cerrar sesión</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -18,7 +18,20 @@
 </template>
 
 <script>
-export default {};
+import Auth from '@/middleware/auth.js';
+export default {
+  name:'navbar',
+  data(){
+    return {
+
+    }
+  },
+  methods:{
+    logout(){
+      Auth.logout();
+    }
+  }
+};
 </script>
 
 <style>

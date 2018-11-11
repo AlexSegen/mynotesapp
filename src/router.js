@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+//Views
+import Login from './views/login/login.vue'
 import Home from './views/Home.vue'
 import Notes from './views/notes/index.vue'
 import newNote from './views/notes/new.vue'
@@ -13,6 +16,11 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
     {
       path: '/home',
       name: 'home',

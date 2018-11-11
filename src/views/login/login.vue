@@ -1,0 +1,59 @@
+<template>
+    <div>
+        <div class="section-header">
+            <div>
+                <h1>Inicia sesión</h1>
+            </div>
+            <div>
+                <router-link to="/" class="btn btn-link">Registrarse</router-link>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="login-form">
+                <form @submit.prevent="login()">
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" v-model="payload.email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" v-model="payload.password">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Entrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import Auth from '@/middleware/auth.js';
+import sysMsgs from '@/helpers/sys.messages';
+export default {
+    name:'login',
+    data(){
+        return {
+            payload:{
+                email:'',
+                password:''
+            }
+        }
+    },
+    methods: {
+        login(){
+            Auth.login(this.payload).then(response => {
+                this.$router.push('/');
+            }).catch(err => {
+                sysMsgs.toastMsg('error', 'Error. Intenta de nuevo.')
+            });
+        }
+    }
+
+}
+</script>
+
+<style>
+
+</style>
