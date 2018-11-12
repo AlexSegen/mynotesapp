@@ -11,14 +11,14 @@
         <div class="section-body">
             <spinner v-if="loading"/>
             <ul v-else class="list-unstyled p-relative">
-                <li v-if="notes && notes.length == 0">
+                <li v-if="NOTES && NOTES.length == 0">
                     <div class="text-center">
                         <p>Aún no existen notas.</p>
                         <router-link :to="{ name: 'newnote' }" class="btn btn-primary"> Crea una nueva </router-link>
                     </div>
                 </li>
                 <template v-else >
-                    <router-link class="media" v-for="item in notes" :key="item.id" :to="'/notes/' + item.id">
+                    <router-link class="media" v-for="item in NOTES" :key="item.id" :to="'/notes/' + item.id">
                         <img class="mr-3" :src="item.category.icon" alt="Generic placeholder image">
                         <div class="media-body">
                         <h5 class="mt-0 mb-1">{{ item.title }}</h5>
@@ -33,6 +33,7 @@
 
 <script>
 import _ from 'underscore';
+import { mapGetters } from "vuex";
 import Auth from '@/middleware/auth'
 import noteServices from '@/services/note.services';
 export default {
@@ -46,8 +47,14 @@ export default {
             uID: Auth.getUser().id
         }
     },
+    mounted(){
+        this.$store.dispatch("GET_NOTES");
+    },
+    computed:{
+        ...mapGetters(["NOTES"])
+    },
     created(){
-        this.getNotes();
+        //this.getNotes();
     },
     methods:{
         getNotes(){
