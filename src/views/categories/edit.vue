@@ -27,6 +27,7 @@
 
 <script>
 import moment from 'moment'
+import Auth from '@/middleware/auth'
 import sysMsg from '@/helpers/sys.messages.js' 
 import categoryServices from '@/services/category.services';
 let now = moment().format('LLLL');
@@ -37,7 +38,8 @@ export default {
             category:{
                 title:'',
                 icon:'' || 'http://placehold.it/',
-                created_at: now
+                created_at: now,
+                userId: Auth.getUser().id
             }
         }
     },

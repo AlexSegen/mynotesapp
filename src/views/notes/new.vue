@@ -36,11 +36,12 @@
 </template>
 
 <script>
-import moment from 'moment'
 import _ from 'underscore'
+import moment from 'moment'
+import Auth from '@/middleware/auth'
+import sysMsg from '@/helpers/sys.messages.js' 
 import noteServices from '@/services/note.services'
 import categoryServices from '@/services/category.services';
-import sysMsg from '@/helpers/sys.messages.js' 
 let now = moment();
 export default {
     name:'newNote',
@@ -53,7 +54,8 @@ export default {
                     title:'Sin categoría',
                     icon:'http://placehold.it/'
                 },
-                created_at: now
+                created_at: now,
+                userId: Auth.getUser().id
             },
             categories:[]
         }
@@ -79,7 +81,8 @@ export default {
                                 title:'Sin categoría',
                                 icon:'http://placehold.it/64x64'
                             },
-                            created_at: now
+                            created_at: now,
+                            userId: Auth.getUser().id
                         }
                     }).catch(err => {
                         sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err );

@@ -26,6 +26,7 @@
 
 <script>
 import moment from 'moment'
+import Auth from '@/middleware/auth'
 import sysMsg from '@/helpers/sys.messages.js' 
 import categoryServices from '@/services/category.services';
 let now = moment();
@@ -36,7 +37,8 @@ export default {
             category:{
                 title:'',
                 icon:'http://placehold.it/64x64',
-                created_at: now
+                created_at: now,
+                userId: Auth.getUser().id
             }
         }
     },
@@ -52,7 +54,8 @@ export default {
                 this.category = {
                     title:'',
                     icon:'',
-                    created_at: now
+                    created_at: now,
+                    userId: Auth.getUser().id
                 }
             }).catch(err => {
                 sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err );

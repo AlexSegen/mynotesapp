@@ -40,8 +40,9 @@
 </template>
 
 <script>
-import moment from 'moment'
 import _ from 'underscore'
+import moment from 'moment'
+import Auth from '@/middleware/auth'
 import sysMsg from '@/helpers/sys.messages.js' 
 import noteServices from '@/services/note.services'
 import categoryServices from '@/services/category.services';
@@ -57,7 +58,8 @@ export default {
                     title:'Sin categoría',
                     icon:'http://placehold.it/'
                 },
-                created_at: now
+                created_at: now,
+                userId: Auth.getUser().id
             },
             categories:[]
         }
