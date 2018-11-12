@@ -31,9 +31,9 @@
 </template>
 
 <script>
+import _ from 'underscore';
 import Auth from '@/middleware/auth'
 import noteServices from '@/services/note.services';
-import _ from 'underscore';
 export default {
     name:'notes',
     data(){

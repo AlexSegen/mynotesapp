@@ -26,13 +26,16 @@
 
 
 <script>
+import _ from 'underscore';
+import Auth from '@/middleware/auth'
 import categoryServices from '@/services/category.services';
 export default {
     name:'categories',
     data(){
         return {
             categories:[],
-            errors:[]
+            errors:[],
+            uID: Auth.getUser().id
         }
     },
     created(){
@@ -41,7 +44,8 @@ export default {
     methods:{
         getCategories(){
             categoryServices.getAll().then(response =>{
-                this.categories = response.data;
+                let $this = this
+                this.categories =  _.filter(response.data, (filter) => { return filter.userId == $this.uID });
                 this.errors = []
             }).catch(err => {
                 this.errors.push(err);
