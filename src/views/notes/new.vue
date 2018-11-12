@@ -57,7 +57,8 @@ export default {
                 created_at: now,
                 userId: Auth.getUser().id
             },
-            categories:[]
+            categories:[],
+            uID: Auth.getUser().id
         }
     },
     created(){
@@ -102,7 +103,8 @@ export default {
                         icon:'http://placehold.it/64x64'
                     }
                 );
-                this.categories = _.sortBy(tempCategories, (sort) => { return sort.id })
+                let $this = this
+                this.categories = _.sortBy(_.filter(tempCategories, (filter) => { return filter.userId == $this.uID }), (sort) => { return sort.id })
             }).catch(err => {
                 console.log(err);
             });

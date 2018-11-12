@@ -6,11 +6,6 @@ export default {
     getAll(){
         return axios.get(RESOURCE_NAME);
     },
-    getUserNotes(){
-        let res = axios.get(RESOURCE_NAME);
-        let x = _.filter(res, function (filter) { return filter.userId == 1 });
-        return x
-    },
     get(id){
         return axios.get(RESOURCE_NAME + '/' + id);
     },

@@ -38,7 +38,7 @@ export default {
     name:'notes',
     data(){
         return {
-            notes: noteServices.getUserNotes(),
+            notes: [],
             errors:[],
             tmp: [],
             uID: Auth.getUser().id
