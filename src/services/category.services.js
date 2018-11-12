@@ -1,20 +1,20 @@
 import axios from 'axios'
-let RESOURCE_NAME = '/categories' 
+let RESOURCE_NAME = '/categories'
 
 export default {
-    getAll(){
+    getAll() {
         return axios.get(RESOURCE_NAME);
     },
-    get(id){
+    get(id) {
         return axios.get(RESOURCE_NAME + '/' + id);
     },
-    post(data){
+    post(data) {
         return axios.post(RESOURCE_NAME, data);
     },
-    put(id, data){
+    put(id, data) {
         return axios.put(RESOURCE_NAME + '/' + id, data);
     },
-    delete(id){
+    delete(id) {
         return axios.delete(RESOURCE_NAME + '/' + id);
     }
 }
