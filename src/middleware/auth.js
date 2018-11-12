@@ -1,11 +1,16 @@
 import axios from 'axios';
 import sysMsgs from '@/helpers/sys.messages';
 //let API = 'https://reqres.in/api/login'
-let API = 'http://localhost:3000/login';
+let API = 'http://localhost:3000';
+
+let RESOURCE_NAME_LOGIN = '/login'
+
+let RESOURCE_NAME_REGISTER = '/register'
+
 export default {
 
     login(data){
-       return axios.post(API, data).then(response => {
+       return axios.post(API + RESOURCE_NAME_LOGIN, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
             window.location.href = '/'
         }).catch(err => {
@@ -23,6 +28,18 @@ export default {
     logout(){
         localStorage.removeItem('login');
         window.location.href = '/login'
+    },
+    register(data){
+        return axios.post(API + RESOURCE_NAME_REGISTER, data).then(response => {
+            localStorage.setItem('login', JSON.stringify(response.data));
+            window.location.href = '/'
+        }).catch(err => {
+            if (err.response.status == 500){ 
+                sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
+            } else {
+                sysMsgs.toastMsg('error', 'Ocurrió un error. Reintenta mas tarde.');
+            }
+        });
     },
     loggedIn(){
         let loggedIn = (localStorage.getItem("login") != null) ? true : false;

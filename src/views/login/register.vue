@@ -2,15 +2,19 @@
     <div>
         <div class="section-header">
             <div>
-                <h1>Inicia sesión</h1>
+                <h1>Registrarse</h1>
             </div>
             <div>
-                <router-link :to="{ name: 'register' }" class="btn btn-link">Registrarse</router-link>
+                <router-link :to="{ name: 'login' }" class="btn btn-link">Ingresar</router-link>
             </div>
         </div>
         <div class="section-body">
             <div class="login-form">
-                <form @submit.prevent="login()">
+                <form @submit.prevent="register()">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" v-model="payload.name">
+                    </div>
                     <div class="form-group">
                         <label for="email">Correo electrónico</label>
                         <input type="email" class="form-control" v-model="payload.email">
@@ -20,7 +24,7 @@
                         <input type="password" class="form-control" v-model="payload.password">
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Entrar</button>
+                        <button class="btn btn-primary" type="submit">Comenzar</button>
                     </div>
                 </form>
             </div>
@@ -31,18 +35,19 @@
 <script>
 import Auth from '@/middleware/auth.js';
 export default {
-    name:'login',
+    name:'register',
     data(){
         return {
             payload:{
+                name:'',
                 email:'',
                 password:''
             }
         }
     },
     methods: {
-        login(){
-            Auth.login(this.payload);
+        register(){
+            Auth.register(this.payload);
         }
     }
 
