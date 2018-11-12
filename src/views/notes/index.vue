@@ -49,9 +49,9 @@ export default {
     },
     methods:{
         getNotes(){
-            noteServices.getAll().then(response =>{
+            noteServices.getAll().then(response => {
                 let $this = this
-                this.notes =  _.filter(response.data, function (filter) { return filter.userId == $this.uID });
+                this.notes =  _.filter(response.data, (filter) => { return filter.userId == $this.uID });
                 this.errors = []
             }).catch(err => {
                 this.errors.push(err);
