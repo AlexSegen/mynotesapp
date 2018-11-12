@@ -5,7 +5,7 @@
                 <h1>Notas</h1>
             </div>
             <div>
-                <router-link v-if="notes && notes.length > 0" :to="{ name: 'newnote' }" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Agregar </router-link>
+                <router-link v-if="NOTES && NOTES.length > 0" :to="{ name: 'newnote' }" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Agregar </router-link>
             </div>
         </div>
         <div class="section-body">
