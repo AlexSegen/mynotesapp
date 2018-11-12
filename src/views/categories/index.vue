@@ -13,7 +13,7 @@
                 <router-link v-if="categories && categories.length == 0"  to="/" class="list-group-item list-group-item-action">
                     <div class="text-center">
                         <p>Aún no existen categorías.</p>
-                        <router-link to="´{ name:'newcategory' }" class="btn btn-primary"> Crea una nueva </router-link>
+                        <router-link :to="{ name: 'newcategory' }" class="btn btn-primary"> Crea una nueva </router-link>
                     </div>
                 </router-link>
                 <template>
