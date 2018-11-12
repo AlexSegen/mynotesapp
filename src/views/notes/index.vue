@@ -31,13 +31,17 @@
 </template>
 
 <script>
+import Auth from '@/middleware/auth'
 import noteServices from '@/services/note.services';
+import _ from 'underscore';
 export default {
     name:'notes',
     data(){
         return {
-            notes:[],
-            errors:[]
+            notes: noteServices.getUserNotes(),
+            errors:[],
+            tmp: [],
+            uID: Auth.getUser().id
         }
     },
     created(){
@@ -46,7 +50,8 @@ export default {
     methods:{
         getNotes(){
             noteServices.getAll().then(response =>{
-                this.notes = response.data;
+                let $this = this
+                this.notes =  _.filter(response.data, function (filter) { return filter.userId == $this.uID });
                 this.errors = []
             }).catch(err => {
                 this.errors.push(err);
