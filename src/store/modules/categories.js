@@ -22,6 +22,13 @@ const actions = {
     GET_CATEGORIES: async (context, payload) => {
         let { data } = await categoryServices.getAll();
         context.commit("SET_CATEGORIES", data);
+      },
+      DELETE_CATEGORY: async (context, payload) => {
+        let { data } = await categoryServices.delete(payload.id);
+        context.commit(
+          "REMOVE_CATEGORY",
+          state.categories.findIndex(find => find.id == payload.id)
+        );
       }
 };
 

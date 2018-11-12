@@ -18,7 +18,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Actualizar</button>
-            <button type="button" class="btn btn-danger" @click="deleteItem()">Eliminar</button>
+            <button type="button" class="btn btn-danger" @click="deleteCategory(category)">Eliminar</button>
         </form>
         
     </div>
@@ -76,6 +76,9 @@ export default {
             } else {
                 sysMsg.toastMsg('warning', 'El campo Título es requerido.');
             }
+        },
+        deleteCategory(payload) {
+            this.$store.dispatch("DELETE_CATEGORY", payload);
         }
     }
 
