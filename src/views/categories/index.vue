@@ -5,20 +5,20 @@
                 <h1>Categorías</h1>
             </div>
             <div>
-                <router-link v-if="categories && categories.length > 0" :to="{ name: 'newcategory' }" class="btn btn-success btn-sm"><i class="fa  fa-plus-circle"></i> Agregar </router-link>
+                <router-link v-if="CATEGORIES && CATEGORIES.length > 0" :to="{ name: 'newcategory' }" class="btn btn-success btn-sm"><i class="fa  fa-plus-circle"></i> Agregar </router-link>
             </div>
         </div>
         <div class="section-body">
             <spinner v-if="loading"/>
             <div v-else class="list-group">
-                <router-link v-if="categories && categories.length == 0"  to="/" class="list-group-item list-group-item-action">
+                <router-link v-if="CATEGORIES && CATEGORIES.length == 0"  to="/" class="list-group-item list-group-item-action">
                     <div class="text-center">
                         <p>Aún no existen categorías.</p>
                         <router-link :to="{ name: 'newcategory' }" class="btn btn-primary"> Crea una nueva </router-link>
                     </div>
                 </router-link>
                 <template>
-                    <router-link  v-for="item in categories" :key="item.id" :to="'/categories/' + item.id" class="list-group-item list-group-item-action">{{ item.title }}</router-link>
+                    <router-link  v-for="item in CATEGORIES" :key="item.id" :to="'/categories/' + item.id" class="list-group-item list-group-item-action">{{ item.title }}</router-link>
                 </template> 
             </div>
         </div>
@@ -28,6 +28,7 @@
 
 <script>
 import _ from 'underscore';
+import { mapGetters } from "vuex";
 import Auth from '@/middleware/auth'
 import categoryServices from '@/services/category.services';
 export default {
@@ -40,8 +41,14 @@ export default {
             uID: Auth.getUser().id
         }
     },
+    mounted(){
+        this.$store.dispatch("GET_CATEGORIES");
+    },
+    computed:{
+        ...mapGetters(["CATEGORIES"])
+    },
     created(){
-        this.getCategories();
+        //this.getCategories();
     },
     methods:{
         getCategories(){
