@@ -28,9 +28,13 @@ section {
 .d-flex {
   display: flex;
 }
+.p-relative{
+  position: relative;
+}
 .section-header {
   display: flex;
   padding: 5px 10px;
+  position: relative;
   div {
     padding: 4px;
     width: 100%;
@@ -44,5 +48,6 @@ section {
   }
 }
 .section-body {
+  position: relative;
   padding: 5px 10px;
 }

@@ -12,6 +12,9 @@ Vue.use(BootstrapVue);
 import moment from 'moment'
 Vue.prototype.moment = moment
 
+//Custom components Registration
+import Spinner from './components/partials/spinner.vue'
+Vue.component('spinner', Spinner);
 
 //Vendors
 import 'bootstrap/dist/css/bootstrap.css'

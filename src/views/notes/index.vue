@@ -9,7 +9,8 @@
             </div>
         </div>
         <div class="section-body">
-            <ul class="list-unstyled">
+            <spinner v-if="loading"/>
+            <ul v-else class="list-unstyled p-relative">
                 <li v-if="notes && notes.length == 0">
                     <div class="text-center">
                         <p>Aún no existen notas.</p>
@@ -38,6 +39,7 @@ export default {
     name:'notes',
     data(){
         return {
+            loading: false,
             notes: [],
             errors:[],
             tmp: [],
@@ -49,12 +51,15 @@ export default {
     },
     methods:{
         getNotes(){
+            this.loading = true;
             noteServices.getAll().then(response => {
                 let $this = this
                 this.notes =  _.filter(response.data, (filter) => { return filter.userId == $this.uID });
                 this.errors = []
+                this.loading = false;
             }).catch(err => {
                 this.errors.push(err);
+                this.loading = false;
                 console.log(err.response);
             });
         }
