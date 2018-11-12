@@ -9,7 +9,8 @@
             </div>
         </div>
         <div class="section-body">
-            <div class="list-group">
+            <spinner v-if="loading"/>
+            <div v-else class="list-group">
                 <router-link v-if="categories && categories.length == 0"  to="/" class="list-group-item list-group-item-action">
                     <div class="text-center">
                         <p>Aún no existen categorías.</p>
@@ -33,6 +34,7 @@ export default {
     name:'categories',
     data(){
         return {
+            loading: false,
             categories:[],
             errors:[],
             uID: Auth.getUser().id
@@ -43,12 +45,15 @@ export default {
     },
     methods:{
         getCategories(){
+            this.loading = true;
             categoryServices.getAll().then(response =>{
                 let $this = this
                 this.categories =  _.filter(response.data, (filter) => { return filter.userId == $this.uID });
                 this.errors = []
+                this.loading = false;
             }).catch(err => {
                 this.errors.push(err);
+                this.loading = false;
                 console.log(err.response);
             });
         }

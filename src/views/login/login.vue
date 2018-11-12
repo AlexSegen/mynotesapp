@@ -11,16 +11,18 @@
         <div class="section-body">
             <div class="login-form">
                 <form @submit.prevent="login()">
-                    <div class="form-group">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" class="form-control" v-model="payload.email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" class="form-control" v-model="payload.password">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Entrar</button>
+                    <div class="fields">
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" class="form-control" v-model="payload.email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" class="form-control" v-model="payload.password">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Entrar</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -42,7 +44,7 @@ export default {
     },
     methods: {
         login(){
-            Auth.login(this.payload);
+            Auth.login(this.payload)
         }
     }
 
