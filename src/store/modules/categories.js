@@ -27,15 +27,19 @@ const mutations = {
   ADD_CATEGORY: (state, payload) => {
     state.categories.push(payload);
   },
+  UPDATE_CATEGORY: (state, payload) => {
+    let objIndex = state.categories.findIndex(find => find.id == payload.id);
+    state.categories[objIndex] = payload;
+  },
   REMOVE_CATEGORY: (state, payload) => {
-    state.categories.splice(payload, 1);
+    let objIndex = state.categories.findIndex(find => find.id == payload.id);
+    state.categories.splice(objIndex, 1);
   }
 };
 const actions = {
   GET_CATEGORIES: async (context, payload) => {
     let { data } = await categoryServices.getAll();
     context.commit("SET_CATEGORIES", data);
-    
   },
   GET_CATEGORY: async (context, payload) => {
     let { data } = await categoryServices.get(payload);
@@ -46,18 +50,19 @@ const actions = {
         sysMsg.toastMsg('success', 'Categoría agregada');
         context.commit("ADD_CATEGORY", payload);
     });
-    
+  },
+  PUT_CATEGORY: async (context, payload) => {
+    return await categoryServices.put(payload).then(response => {
+        context.commit("UPDATE_CATEGORY", payload);
+        sysMsg.toastMsg('success', 'Categoría actualizada.');
+    });
   },
   DELETE_CATEGORY: async (context, payload) => {
     return await categoryServices.delete(payload.id).then(response => {
-
         context.commit(
-            "REMOVE_CATEGORY",
-            state.categories.findIndex(find => find.id == payload.id)
+            "REMOVE_CATEGORY", payload
         );
-
     });
-
   }
 };
 

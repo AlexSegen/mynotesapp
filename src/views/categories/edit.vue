@@ -56,12 +56,7 @@ export default {
         },
         updateItem(){
             if(this.validation()){ 
-            categoryServices.put(this.$route.params.id, this.category).then(response => {
-                    sysMsg.toastMsg('info', 'Categoría actualizada con éxito');
-                    this.category = response.data;    
-                }).catch(err => {
-                    sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
-                });
+                this.$store.dispatch("PUT_CATEGORY", this.CATEGORY)
             } else {
                 sysMsg.toastMsg('warning', 'El campo Título es requerido.');
             }
