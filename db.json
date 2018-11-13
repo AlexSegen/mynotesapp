@@ -15,7 +15,7 @@
       "id": 1
     },
     {
-      "title": "Mi nota 2",
+      "title": "Mi nota 2 dani",
       "description": "contenido Mi nota 2",
       "category": {
         "title": "Categoría 2",
@@ -27,6 +27,20 @@
       "created_at": "2018-11-13T13:43:54.935Z",
       "userId": 1,
       "id": 2
+    },
+    {
+      "title": "Nota de dani editada",
+      "description": "contenido Nota de dani",
+      "category": {
+        "title": "categoría 3",
+        "icon": "http://placehold.it/64x64",
+        "created_at": "2018-11-13T13:43:54.941Z",
+        "userId": 1,
+        "id": 3
+      },
+      "created_at": "2018-11-13T14:08:49.871Z",
+      "userId": 2,
+      "id": 3
     }
   ],
   "categories": [
@@ -38,18 +52,11 @@
       "id": 1
     },
     {
-      "title": "Categoría 2",
+      "title": "Categoría nro 2",
       "icon": "http://placehold.it/64x64",
       "created_at": "2018-11-13T13:38:33.839Z",
       "userId": 1,
       "id": 2
-    },
-    {
-      "title": "categoría 3",
-      "icon": "http://placehold.it/64x64",
-      "created_at": "2018-11-13T13:43:54.941Z",
-      "userId": 1,
-      "id": 3
     }
   ]
 }
