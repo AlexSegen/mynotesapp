@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="section-body">
-        <form @submit.prevent="add()">
+        <form @submit.prevent="addItem()">
             <div class="fields">
                 <div class="form-group">
                     <label for="title">Título</label>
@@ -47,23 +47,22 @@ export default {
             let valid = this.category.title.toString().trim() == '' ? false : true
             return valid
         },
-        add(){
+        addItem(){
             if(this.validation()){
-            categoryServices.post(this.category).then(response => {
-                 sysMsg.toastMsg('success', 'Categoría agregada');
-                this.category = {
-                    title:'',
-                    icon:'',
-                    created_at: now,
-                    userId: Auth.getUser().id
-                }
-            }).catch(err => {
-                sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err );
-            });
+                this.$store.dispatch("SAVE_CATEGORY", this.category).then(response => {
+                    this.category = {
+                        title:'',
+                        icon:'',
+                        created_at: now,
+                        userId: Auth.getUser().id
+                    }
+                }).catch(err => {
+                    sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response );
+                });
+                            
             } else {
                 sysMsg.toastMsg('warning', 'El campo Título es requerido.');
             }
-
         }
     }
 

@@ -3,7 +3,7 @@
     <div class="section-header">
         <div>
             <h1>Editar categoría</h1>
-            <span>Creada: {{ moment(category.created_at).format('MMM Do YY') }}</span>
+            <span>Creada: {{ moment(CATEGORY.created_at).format('MMM Do YY') }}</span>
         </div>
         <div>
            <router-link :to="{ name: 'categories' }" class="btn btn-link">Volver</router-link>
@@ -14,19 +14,19 @@
             <div class="fields">
                 <div class="form-group">
                     <label for="title">Título</label>
-                    <input id="title" type="text" class="form-control" v-model="category.title">
+                    <input id="title" type="text" class="form-control" v-model="CATEGORY.title">
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Actualizar</button>
             <button type="button" class="btn btn-danger" @click="deleteCategory(category)">Eliminar</button>
-        </form>
-        
+        </form>        
     </div>
 </div>
 </template>
 
 <script>
 import moment from 'moment'
+import { mapGetters } from "vuex";
 import Auth from '@/middleware/auth'
 import sysMsg from '@/helpers/sys.messages.js' 
 import categoryServices from '@/services/category.services';
@@ -43,27 +43,16 @@ export default {
             }
         }
     },
-    created(){
-        this.getItem();
+    mounted(){
+        this.$store.dispatch("GET_CATEGORY", this.$route.params.id);
+    },
+    computed:{
+        ...mapGetters(["CATEGORY"])
     },
     methods:{
         validation(){
-            let valid = this.category.title.toString().trim() == '' ? false : true
+            let valid = this.CATEGORY.title.toString().trim() == '' ? false : true
             return valid
-        },
-        getItem(){
-            categoryServices.get(this.$route.params.id).then(response => {
-                this.category = response.data;
-            }).catch(err => {
-                sysMsg.toastMsg('error', 'No se pudo cargar la catgoría. ' + err);
-            });
-        },
-        deleteItem(){
-            categoryServices.delete(this.$route.params.id).then(response => {
-                this.$router.push('/categories');
-            }).catch(err => {
-                sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
-            });
         },
         updateItem(){
             if(this.validation()){ 
@@ -78,7 +67,12 @@ export default {
             }
         },
         deleteCategory(payload) {
-            this.$store.dispatch("DELETE_CATEGORY", payload);
+            let  category = this.CATEGORY
+            this.$store.dispatch("DELETE_CATEGORY", category).then(response => {
+                this.$router.push('/categories');
+            }).catch(err => {
+                sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response);
+            });
         }
     }
 
