@@ -52,24 +52,6 @@ export default {
     },
     computed:{
         ...mapGetters(["NOTES"])
-    },
-    created(){
-        //this.getNotes();
-    },
-    methods:{
-        getNotes(){
-            this.loading = true;
-            noteServices.getAll().then(response => {
-                let $this = this
-                this.notes =  _.filter(response.data, (filter) => { return filter.userId == $this.uID });
-                this.errors = []
-                this.loading = false;
-            }).catch(err => {
-                this.errors.push(err);
-                this.loading = false;
-                console.log(err.response);
-            });
-        }
     }
 }
 </script>

@@ -11,12 +11,12 @@
         <div class="section-body">
             <spinner v-if="loading"/>
             <div v-else class="list-group">
-                <router-link v-if="CATEGORIES && CATEGORIES.length == 0"  to="/" class="list-group-item list-group-item-action">
-                    <div class="text-center">
-                        <p>Aún no existen categorías.</p>
-                        <router-link :to="{ name: 'newcategory' }" class="btn btn-primary"> Crea una nueva </router-link>
-                    </div>
-                </router-link>
+                
+                <div class="text-center" v-if="CATEGORIES && CATEGORIES.length == 0" >
+                    <p>Aún no existen categorías.</p>
+                    <router-link :to="{ name: 'newcategory' }" class="btn btn-primary"> Crea una nueva </router-link>
+                </div>
+
                 <template>
                     <router-link  v-for="item in CATEGORIES" :key="item.id" :to="'/categories/' + item.id" class="list-group-item list-group-item-action">{{ item.title }}</router-link>
                 </template> 
@@ -46,24 +46,6 @@ export default {
     },
     computed:{
         ...mapGetters(["CATEGORIES"])
-    },
-    created(){
-        //this.getCategories();
-    },
-    methods:{
-        getCategories(){
-            this.loading = true;
-            categoryServices.getAll().then(response =>{
-                let $this = this
-                this.categories =  _.filter(response.data, (filter) => { return filter.userId == $this.uID });
-                this.errors = []
-                this.loading = false;
-            }).catch(err => {
-                this.errors.push(err);
-                this.loading = false;
-                console.log(err.response);
-            });
-        }
     }
 
 }

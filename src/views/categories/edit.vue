@@ -61,7 +61,7 @@ export default {
                 sysMsg.toastMsg('warning', 'El campo Título es requerido.');
             }
         },
-        deleteCategory(payload) {
+        deleteCategory() {
             let  category = this.CATEGORY
             this.$store.dispatch("DELETE_CATEGORY", category).then(response => {
                 this.$router.push('/categories');
