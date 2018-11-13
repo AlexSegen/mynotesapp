@@ -1,7 +1,11 @@
 import axios from 'axios';
 import sysMsgs from '@/helpers/sys.messages';
-//let API = 'https://reqres.in/api/login'
-let API = 'http://localhost:3000';
+
+const axiosConfig = {
+    baseURL: 'http://localhost:3000',
+};
+
+const HTTP = axios.create(axiosConfig);
 
 let RESOURCE_NAME_LOGIN = '/login'
 
@@ -10,7 +14,7 @@ let RESOURCE_NAME_REGISTER = '/register'
 export default {
 
     login(data){
-       return axios.post(API + RESOURCE_NAME_LOGIN, data).then(response => {
+       return HTTP.post(RESOURCE_NAME_LOGIN, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
             window.location.href = '/'
         }).catch(err => {
@@ -30,7 +34,7 @@ export default {
         window.location.href = '/login'
     },
     register(data){
-        return axios.post(API + RESOURCE_NAME_REGISTER, data).then(response => {
+        return HTTP.post(RESOURCE_NAME_REGISTER, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
             window.location.href = '/'
         }).catch(err => {
