@@ -28,11 +28,11 @@ const mutations = {
     state.categories.push(payload);
   },
   UPDATE_CATEGORY: (state, payload) => {
-    let objIndex = state.categories.findIndex(find => find.id == payload.id);
+    let objIndex = state.categories.findIndex(find => find._id == payload._id);
     state.categories[objIndex] = payload;
   },
   REMOVE_CATEGORY: (state, payload) => {
-    let objIndex = state.categories.findIndex(find => find.id == payload.id);
+    let objIndex = state.categories.findIndex(find => find._id == payload._id);
     state.categories.splice(objIndex, 1);
   }
 };
@@ -58,7 +58,7 @@ const actions = {
     });
   },
   DELETE_CATEGORY: async (context, payload) => {
-    return await categoryServices.delete(payload.id).then(response => {
+    return await categoryServices.delete(payload._id).then(response => {
         context.commit(
             "REMOVE_CATEGORY", payload
         );

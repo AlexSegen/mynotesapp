@@ -21,12 +21,12 @@
                     <label for="category">Categoría</label>
                     <select  id="category" class="form-control" v-model="note.category">
                         <option value="sin categoría">Sin categoría</option>
-                        <option v-for="item in CATEGORIES" :key="item.id" :value="item">{{ item.title }}</option>
+                        <option v-for="item in CATEGORIES" :key="item._id" :value="item.title">{{ item.title }}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción (*)</label>
-                    <textarea id="description" class="form-control" v-model="note.description"></textarea>
+                    <textarea id="description" class="form-control" v-model="note.content"></textarea>
                 </div>
             </div>
             <button type="submit" class="btn btn-success">AGREGAR</button>
@@ -50,14 +50,14 @@ export default {
     data(){
         return {
             note:{
-                title:'',
-                description:'',
+                title: "",
+                content: "",
                 category: {
                     title: '' || 'Sin categoría',
-                    icon:'http://placehold.it/'
+                    pic:'' || null,
+                    color:'' || null
                 },
-                created_at: now,
-                userId: Auth.getUser().id
+                createdAt: now
             },
             categories:[],
             uID: Auth.getUser().id
@@ -71,26 +71,26 @@ export default {
     },
     methods:{
         validation(){
-            let valid = this.note.title.toString().trim() == '' || this.note.description.toString().trim() == '' ? false : true
+            let valid = this.note.title.toString().trim() == '' || this.note.content.toString().trim() == '' ? false : true
             return valid
         },
         add(){
-            
+
             if(this.validation()){
                 
                 this.$store.dispatch("SAVE_NOTE", this.note).then(response => {
                     this.note = {
-                        title:'',
-                        description:'',
+                        title: "",
+                        content: "",
                         category: {
                             title: '' || 'Sin categoría',
-                            icon:'http://placehold.it/'
+                            pic:'' || null,
+                            color:'' || null
                         },
-                        created_at: now,
-                        userId: Auth.getUser().id
+                        createdAt: now
                     }
                 }).catch(err => {
-                    sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response );
+                    sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response);
                 });
 
             } else {

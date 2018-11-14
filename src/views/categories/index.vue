@@ -18,7 +18,12 @@
                 </div>
 
                 <template>
-                    <router-link  v-for="item in CATEGORIES" :key="item.id" :to="'/categories/' + item.id" class="list-group-item list-group-item-action">{{ item.title }}</router-link>
+                    <router-link  v-for="item in CATEGORIES" 
+                    :key="item._id" 
+                    :to="'/categories/' + item._id" 
+                    class="list-group-item list-group-item-action">
+                     <i class="fa fa-circle" :style="'color:' + item.color"></i> {{ item.title }}
+                    </router-link>
                 </template> 
             </div>
         </div>

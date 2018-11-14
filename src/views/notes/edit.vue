@@ -3,7 +3,7 @@
     <div class="section-header">
         <div>
             <h1>Nueva nota</h1>
-            <span>Creada: {{ moment(NOTE.created_at).format('MMM Do YY') }}</span>
+            <span>Creada: {{ moment(NOTE.createdAt).format('MMM Do YY') }}</span>
         </div>
         <div>
             <router-link :to="{ name: 'notes' }" class="btn btn-link">Volver</router-link>
@@ -20,14 +20,14 @@
                 </div>
                 <div class="form-group">
                     <label for="category">Categoría</label>
-                    <select  id="category" class="form-control" v-model="NOTE.category.title">
-                        <option>{{ NOTE.category.title }}</option>
+                    <select  id="category" class="form-control" v-model="NOTE.category">
+                        <option>{{ NOTE.category }}</option>
                         <option v-for="item in CATEGORIES" :key="item.id" :value="item.title">{{ item.title }}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción (*)</label>
-                    <textarea id="description" class="form-control" v-model="NOTE.description"></textarea>
+                    <textarea id="description" class="form-control" v-model="NOTE.content"></textarea>
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Actualizar</button>
@@ -52,14 +52,15 @@ export default {
     data(){
         return {
             note:{
-                title:'',
-                description:'',
+                title: "",
+                content: "",
                 category: {
-                    title:'Sin categoría',
-                    icon:'http://placehold.it/'
+                    title: '' || 'Sin categoría',
+                    picture:'' || null,
+                    color:'' || null
                 },
-                created_at: now,
-                userId: Auth.getUser().id
+                createdAt: now,
+                updatedAt: null
             },
             categories:[],
             uID: Auth.getUser().id
@@ -74,7 +75,7 @@ export default {
     },
     methods:{
         validation(){
-            let valid = this.NOTE.title.toString().trim() == '' || this.NOTE.description.toString().trim() == '' ? false : true
+            let valid = this.NOTE.title.toString().trim() == '' || this.NOTE.content.toString().trim() == '' ? false : true
             return valid
         },
         deleteItem(){

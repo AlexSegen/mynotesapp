@@ -15,7 +15,11 @@
                     <label for="title">Título</label>
                     <input id="title" type="text" class="form-control" v-model="category.title">
                 </div>
-                <input type="text" v-model="category.icon" hidden>
+                <div class="form-group">
+                    <label for="title">Color</label>
+                    <input id="title" type="text" class="form-control" placeholder="#4CAF50, #3F51B5, #f44336, ..." v-model="category.color">
+                </div>
+                <input type="text" v-model="category.picture" hidden>
             </div>
             <button type="submit" class="btn btn-success">AGREGAR</button>
         </form>
@@ -36,9 +40,10 @@ export default {
         return {
             category:{
                 title:'',
-                icon:'http://placehold.it/64x64',
-                created_at: now,
-                userId: Auth.getUser().id
+                color:'',
+                picture:'' || 'http://placehold.it/64x64',
+                createdAt: now,
+                updatedAt: null
             }
         }
     },
@@ -52,9 +57,10 @@ export default {
                 this.$store.dispatch("SAVE_CATEGORY", this.category).then(response => {
                     this.category = {
                         title:'',
-                        icon:'',
-                        created_at: now,
-                        userId: Auth.getUser().id
+                        color:'' || 'blue',
+                        picture:'' || 'http://placehold.it/64x64',
+                        createdAt: now,
+                        updatedAt: null
                     }
                 }).catch(err => {
                     sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response );

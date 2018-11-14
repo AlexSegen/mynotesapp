@@ -16,6 +16,10 @@
                     <label for="title">Título</label>
                     <input id="title" type="text" class="form-control" v-model="CATEGORY.title">
                 </div>
+                <div class="form-group">
+                    <label for="title">Color</label>
+                    <input id="title" type="text" class="form-control" placeholder="#4CAF50, #3F51B5, #f44336, ..." v-model="CATEGORY.color">
+                </div>
             </div>
             <button type="submit" class="btn btn-success">Actualizar</button>
             <button type="button" class="btn btn-danger" @click="deleteCategory(category)">Eliminar</button>
@@ -37,9 +41,10 @@ export default {
         return {
             category:{
                 title:'',
-                icon:'' || 'http://placehold.it/',
-                created_at: now,
-                userId: Auth.getUser().id
+                color:'' || 'blue',
+                picture:'' || 'http://placehold.it/64x64',
+                createdAt: now,
+                updatedAt: null
             }
         }
     },

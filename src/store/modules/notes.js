@@ -23,11 +23,11 @@ const mutations = {
         state.notes.push(payload);
     },
     UPDATE_NOTE: (state, payload) => {
-        let objIndex = state.notes.findIndex(find => find.id == payload.id);
+        let objIndex = state.notes.findIndex(find => find._id == payload._id);
         state.notes[objIndex] = payload;
     },
     REMOVE_NOTE: (state, payload) => {
-        let objIndex = state.notes.findIndex(find => find.id == payload.id);
+        let objIndex = state.notes.findIndex(find => find._id == payload._id);
         state.notes.splice(objIndex, 1);
     }
 };
@@ -53,7 +53,7 @@ const actions = {
       });
     },
     DELETE_NOTE: async (context, payload) => {
-      return await noteServices.delete(payload.id).then(response => {
+      return await noteServices.delete(payload._id).then(response => {
           context.commit(
               "REMOVE_NOTE", payload
           );

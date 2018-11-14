@@ -18,11 +18,11 @@
                     </div>
                 </li>
                 <template v-else >
-                    <router-link class="media" v-for="item in NOTES" :key="item.id" :to="'/notes/' + item.id">
-                        <img class="mr-3" :src="item.category.icon" alt="Generic placeholder image">
+                    <router-link class="media" v-for="item in NOTES" :key="item.id" :to="'/notes/' + item._id">
+                        <img class="mr-3" src="http://placehold.it/64x64" alt="Generic placeholder image">
                         <div class="media-body">
                         <h5 class="mt-0 mb-1">{{ item.title }}</h5>
-                        <div><strong>{{ item.category.title }}</strong>. Creada en {{ moment(item.created_at).format('MMM Do YY') }}</div>
+                        <div><strong>{{ item.category }}</strong>. Creada en {{ moment(item.created_at).format('MMM Do YY') }}</div>
                         </div>
                     </router-link>
                 </template>

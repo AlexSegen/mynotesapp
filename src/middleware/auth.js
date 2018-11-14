@@ -2,7 +2,7 @@ import axios from 'axios';
 import sysMsgs from '@/helpers/sys.messages';
 
 const axiosConfig = {
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.VUE_APP_AUTH_URL
 };
 
 const HTTP = axios.create(axiosConfig);
