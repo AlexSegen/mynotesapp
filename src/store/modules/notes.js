@@ -23,9 +23,6 @@ const mutations = {
         state.notes.push(payload);
     },
     UPDATE_NOTE: (state, payload) => {
-        console.log(payload, state.notes);
-        
-        return false;
         let objIndex = state.notes.findIndex(find => find._id == payload._id);
         state.notes[objIndex] = payload;
     },
