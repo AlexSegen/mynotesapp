@@ -3,7 +3,7 @@
     <div class="section-header">
         <div>
             <h1>Nueva nota</h1>
-            <span>Creada: {{ moment(NOTE.createdAt).format('MMM Do YY') }}</span>
+            <span v-cloak>Creada: {{ moment(NOTE.createdAt).format('MMM Do YY') }}</span>
         </div>
         <div>
             <router-link :to="{ name: 'notes' }" class="btn btn-link">Volver</router-link>
@@ -20,8 +20,8 @@
                 </div>
                 <div class="form-group">
                     <label for="category">Categoría</label>
-                    <select  id="category" class="form-control" v-model="NOTE.category">
-                        <option>{{ NOTE.category }}</option>
+                    <select  id="category" class="form-control" v-model="NOTE.category.title">
+                        <option>{{ NOTE.category.title }}</option>
                         <option v-for="item in CATEGORIES" :key="item.id" :value="item.title">{{ item.title }}</option>
                     </select>
                 </div>
@@ -59,14 +59,14 @@ export default {
                     picture:'' || null,
                     color:'' || null
                 },
-                createdAt: now,
+                //createdAt: now,
                 updatedAt: null
             },
             categories:[],
             uID: Auth.getUser().id
         }
     },
-    mounted(){
+    created(){
         this.$store.dispatch("GET_NOTE", this.$route.params.id);
         this.$store.dispatch("GET_CATEGORIES");
     },

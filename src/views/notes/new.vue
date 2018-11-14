@@ -20,8 +20,7 @@
                 <div class="form-group">
                     <label for="category">Categoría</label>
                     <select  id="category" class="form-control" v-model="note.category">
-                        <option value="sin categoría">Sin categoría</option>
-                        <option v-for="item in CATEGORIES" :key="item._id" :value="item.title">{{ item.title }}</option>
+                        <option v-for="item in CATEGORIES" :key="item._id" :value="item">{{ item.title }}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -54,7 +53,7 @@ export default {
                 content: "",
                 category: {
                     title: '' || 'Sin categoría',
-                    pic:'' || null,
+                    picture:'' || null,
                     color:'' || null
                 },
                 createdAt: now
@@ -76,7 +75,24 @@ export default {
         },
         add(){
 
+            const categorySelected = this.CATEGORIES
+            .filter(cat => {
+                return cat._id === this.note.category._id;
+            })
+            .map(cat => {
+                let arr = {
+                    title: cat.title,
+                    color: cat.color,
+                    picture: cat.picture
+                }
+                return arr;
+            });
+
+            this.note.category = categorySelected[0];
+
+
             if(this.validation()){
+                
                 
                 this.$store.dispatch("SAVE_NOTE", this.note).then(response => {
                     this.note = {
@@ -84,7 +100,7 @@ export default {
                         content: "",
                         category: {
                             title: '' || 'Sin categoría',
-                            pic:'' || null,
+                            picture:'' || null,
                             color:'' || null
                         },
                         createdAt: now
