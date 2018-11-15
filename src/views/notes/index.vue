@@ -25,7 +25,7 @@
                         <img class="mr-3" :src="item.picture == null ? 'https://via.placeholder.com/64/' + item.category.color + '/' + item.category.color: item.picture">
                         <div class="media-body">
                         <h5 class="mt-0 mb-1">{{ item.title }}</h5>
-                        <div><strong>{{ item.category.title }}</strong>. Creada en {{ moment(item.created_at).format('MMM Do YY') }}</div>
+                        <div><strong>{{ item.category.title }}</strong>. Creada en {{ moment(item.createdAt).format('MMM Do YY') }}</div>
                         </div>
                     </router-link>
                 </template>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import _ from 'underscore';
 import { mapGetters } from "vuex";
 import Auth from '@/middleware/auth'
 import noteServices from '@/services/note.services';
