@@ -5,13 +5,16 @@
                 <h1>Notas</h1>
             </div>
             <div>
-                <router-link v-if="NOTES && NOTES.length > 0" :to="{ name: 'newnote' }" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Agregar </router-link>
+                <router-link v-if="!NOTES || NOTES.length > 0" :to="{ name: 'newnote' }" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Agregar </router-link>
             </div>
         </div>
         <div class="section-body">
+            <div v-if="error" class="alert alert-danger text-center">
+                Ocurrió un error 😪
+            </div>
             <spinner v-if="loading"/>
             <ul v-else class="list-unstyled p-relative">
-                <li v-if="NOTES && NOTES.length == 0">
+                <li v-if="!NOTES || NOTES.length == 0">
                     <div class="text-center">
                         <p>Aún no existen notas.</p>
                         <router-link :to="{ name: 'newnote' }" class="btn btn-primary"> Crea una nueva </router-link>
@@ -42,13 +45,20 @@ export default {
         return {
             loading: false,
             notes: [],
-            errors:[],
+            error: false,
             tmp: [],
             uID: Auth.getUser().id
         }
     },
     mounted(){
-        this.$store.dispatch("GET_NOTES");
+        this.loading = true;
+        this.$store.dispatch("GET_NOTES").then(response => {
+            this.error = false;
+            this.loading = false;
+        }).catch(err => {
+            this.error = true;
+            this.loading = false;
+        });
     },
     computed:{
         ...mapGetters(["NOTES"])

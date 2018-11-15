@@ -38,12 +38,15 @@ const mutations = {
 };
 const actions = {
   GET_CATEGORIES: async (context, payload) => {
-    let { data } = await categoryServices.getAll();
-    context.commit("SET_CATEGORIES", data);
+    return await categoryServices.getAll().then(response => {
+      context.commit("SET_CATEGORIES", response.data);
+    });
+    
   },
   GET_CATEGORY: async (context, payload) => {
-    let { data } = await categoryServices.get(payload);
-    context.commit("SET_CATEGORY", data);
+    return await categoryServices.get(payload).then(response => {
+      context.commit("SET_CATEGORY", response.data);
+    })
   },
   SAVE_CATEGORY: async (context, payload) => {
     return await categoryServices.post(payload).then(response => {

@@ -9,7 +9,8 @@
         </div>
     </div>
     <div class="section-body">
-        <form @submit.prevent="addItem()">
+        <spinner v-if="loading"/>
+        <form v-show="!loading" @submit.prevent="addItem()">
             <div class="fields">
                 <div class="form-group">
                     <label for="title">Título</label>
@@ -38,6 +39,7 @@ export default {
     name:'newCategory',
     data(){
         return {
+            loading: false,
             category:{
                 title:'',
                 color:'',
@@ -53,8 +55,10 @@ export default {
             return valid
         },
         addItem(){
+            this.loading = true;
             if(this.validation()){
                 this.$store.dispatch("SAVE_CATEGORY", this.category).then(response => {
+                    this.loading = false;
                     this.category = {
                         title:'',
                         color:'' || 'blue',
@@ -63,7 +67,8 @@ export default {
                         updatedAt: null
                     }
                 }).catch(err => {
-                    sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response );
+                    this.loading = false;
+                    sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err );
                 });
                             
             } else {

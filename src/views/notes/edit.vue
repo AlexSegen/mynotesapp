@@ -10,8 +10,8 @@
         </div>
     </div>
     <div class="section-body">
-
-        <form @submit.prevent="updateItem()">
+        <spinner v-if="loading"/>
+        <form v-show="!loading" @submit.prevent="updateItem()">
             
             <div class="fields">
                 <div class="form-group">
@@ -51,6 +51,7 @@ export default {
     name:'editNote',
     data(){
         return {
+            loading:false,
             note:{
                 title: "",
                 content: "",
@@ -66,9 +67,22 @@ export default {
             uID: Auth.getUser().id
         }
     },
-    created(){
-        this.$store.dispatch("GET_NOTE", this.$route.params.id);
-        this.$store.dispatch("GET_CATEGORIES");
+    mounted(){
+
+        this.loading = true;
+        this.$store.dispatch("GET_NOTE", this.$route.params.id).then(response => {
+            this.loading = false;
+        }).catch(err => {
+            sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
+            this.loading = false;
+        });
+        
+        this.$store.dispatch("GET_CATEGORIES").then(response => {
+            this.loading = false;
+        }).catch(err => {
+            sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
+            this.loading = false;
+        });
     },
     computed:{
         ...mapGetters(["NOTE", "CATEGORIES"])
@@ -80,16 +94,24 @@ export default {
         },
         deleteItem(){
             let  note = this.NOTE
+            this.loading = true;
             this.$store.dispatch("DELETE_NOTE", note).then(response => {
                 this.$router.push('/');
             }).catch(err => {
+                this.loading = false;
                 sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response);
             });
         },
         updateItem(){
+            this.loading = true;
             if(this.validation()){ 
-                this.$store.dispatch("PUT_NOTE", this.NOTE)
+                this.$store.dispatch("PUT_NOTE", this.NOTE).then(response => {
+                    this.loading = false;
+                }).catch(err => {
+                    this.loading = false;
+                })
             } else {
+                this.loading = false;
                 sysMsg.toastMsg('warning', 'Rellena los campos requeridos.');
             }
         }

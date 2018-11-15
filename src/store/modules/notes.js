@@ -33,12 +33,15 @@ const mutations = {
 };
 const actions = {
     GET_NOTES: async (context, payload) => {
-      let { data } = await noteServices.getAll();
-      context.commit("SET_NOTES", data);
+      return await noteServices.getAll().then(response => {
+        context.commit("SET_NOTES", response.data);
+      })
     },
     GET_NOTE: async (context, payload) => {
-      let { data } = await noteServices.get(payload);
-      context.commit("SET_NOTE", data);
+      return await noteServices.get(payload).then(response => {
+        context.commit("SET_NOTE", response.data);
+      });
+      
     },
     SAVE_NOTE: async (context, payload) => {
       return await noteServices.post(payload).then(response => {

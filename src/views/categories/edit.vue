@@ -10,7 +10,8 @@
         </div>
     </div>
     <div class="section-body">
-        <form @submit.prevent="updateItem()">
+        <spinner v-if="loading"/>
+        <form v-show="!loading" @submit.prevent="updateItem()">
             <div class="fields">
                 <div class="form-group">
                     <label for="title">Título</label>
@@ -39,6 +40,7 @@ export default {
     name:'EditCategory',
     data(){
         return {
+            loading: false,
             category:{
                 title:'',
                 color:'' || 'blue',
@@ -49,7 +51,12 @@ export default {
         }
     },
     mounted(){
-        this.$store.dispatch("GET_CATEGORY", this.$route.params.id);
+        this.loading = true;
+        this.$store.dispatch("GET_CATEGORY", this.$route.params.id).then(res => {
+            this.loading = false;
+        }).catch(()=> {
+            sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
+        });
     },
     computed:{
         ...mapGetters(["CATEGORY"])

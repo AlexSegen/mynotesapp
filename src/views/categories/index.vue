@@ -5,14 +5,17 @@
                 <h1>Categorías</h1>
             </div>
             <div>
-                <router-link v-if="CATEGORIES && CATEGORIES.length > 0" :to="{ name: 'newcategory' }" class="btn btn-success btn-sm"><i class="fa  fa-plus-circle"></i> Agregar </router-link>
+                <router-link v-if="!CATEGORIES || CATEGORIES.length > 0" :to="{ name: 'newcategory' }" class="btn btn-success btn-sm"><i class="fa  fa-plus-circle"></i> Agregar </router-link>
             </div>
         </div>
         <div class="section-body">
+            <div v-if="error" class="alert alert-danger text-center">
+                Ocurrió un error 😪
+            </div>
             <spinner v-if="loading"/>
             <div v-else class="list-group">
                 
-                <div class="text-center" v-if="CATEGORIES && CATEGORIES.length == 0" >
+                <div class="text-center" v-if="!CATEGORIES || CATEGORIES.length == 0" >
                     <p>Aún no existen categorías.</p>
                     <router-link :to="{ name: 'newcategory' }" class="btn btn-primary"> Crea una nueva </router-link>
                 </div>
@@ -42,12 +45,19 @@ export default {
         return {
             loading: false,
             categories:[],
-            errors:[],
+            error: false,
             uID: Auth.getUser().id
         }
     },
     mounted(){
-        this.$store.dispatch("GET_CATEGORIES");
+        this.loading = true;
+        this.$store.dispatch("GET_CATEGORIES").then(response => {
+            this.error = false;
+            this.loading = false;
+        }).catch(err => {
+            this.loading = false;
+            this.error = true;
+        });
     },
     computed:{
         ...mapGetters(["CATEGORIES"])

@@ -9,8 +9,9 @@
         </div>
     </div>
     <div class="section-body">
+        <spinner v-if="loading"/>
 
-        <form @submit.prevent="add()">
+        <form v-show="!loading" @submit.prevent="add()">
             
             <div class="fields">
                 <div class="form-group">
@@ -48,6 +49,8 @@ export default {
     name:'newNote',
     data(){
         return {
+            loading:false,
+            error: false,
             note:{
                 title: "",
                 content: "",
@@ -63,7 +66,14 @@ export default {
         }
     },
     mounted(){
-        this.$store.dispatch("GET_CATEGORIES");
+        this.loading = true;
+        this.$store.dispatch("GET_CATEGORIES").then(response => {
+            this.loading = false;
+        }).catch(err => {
+            sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
+            this.loading = false;
+        });
+        
     },
     computed:{
         ...mapGetters(["CATEGORIES"])
@@ -74,7 +84,7 @@ export default {
             return valid
         },
         add(){
-
+            this.loading = true;
             const categorySelected = this.CATEGORIES
             .filter(cat => {
                 return cat._id === this.note.category._id;
@@ -95,6 +105,7 @@ export default {
                 
                 
                 this.$store.dispatch("SAVE_NOTE", this.note).then(response => {
+                    this.loading = false;
                     this.note = {
                         title: "",
                         content: "",
@@ -106,6 +117,7 @@ export default {
                         createdAt: now
                     }
                 }).catch(err => {
+                    this.loading = false;
                     sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response);
                 });
 
