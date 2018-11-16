@@ -1,5 +1,5 @@
-import sysMsgs from '@/helpers/sys.messages';
 import HTTP from '@/services/config'
+import sysMsgs from '@/helpers/sys.messages';
 
 let RESOURCE_NAME_LOGIN = '/auth/login'
 
@@ -11,7 +11,7 @@ export default {
 
        HTTP.post(RESOURCE_NAME_LOGIN, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
-            window.location.href = '/'
+            window.location.href = env.process.VUE_APP_BASE_URL
         }).catch(error => {
             if(error.response.status == 401) {
                 sysMsgs.toastMsg('error', 'Datos incorrectos');
@@ -26,12 +26,12 @@ export default {
     },
     logout(){
         localStorage.removeItem('login');
-        window.location.href = '/login'
+        window.location.href = env.process.VUE_APP_BASE_URL + 'login'
     },
     register(data){
         return HTTP.post(RESOURCE_NAME_REGISTER, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
-            window.location.href = '/'
+            window.location.href = env.process.VUE_APP_BASE_URL + 'login'
         }).catch(err => {
             if (err.response.status == 500){ 
                 sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
@@ -41,8 +41,9 @@ export default {
         });
     },
     loggedIn(){
-        let loggedIn = (localStorage.getItem("login") != null) ? true : false;
-        return loggedIn;
+        let authenticated = JSON.stringify(localStorage.getItem("login"))
+
+        return 'hola';
     },
     getToken(){
         let data = '';
