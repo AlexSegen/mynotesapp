@@ -72,6 +72,7 @@ export default {
                 });
                             
             } else {
+                this.loading = false;
                 sysMsg.toastMsg('warning', 'El campo Título es requerido.');
             }
         }

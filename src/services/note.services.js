@@ -1,24 +1,26 @@
-import axios from 'axios'
+import HTTP from '@/services/config'
+
 let RESOURCE_NAME = '/notes'
+
 
 export default {
     getAll() {
         try {
-            return axios.get(RESOURCE_NAME)
+            return HTTP.get(RESOURCE_NAME)
         } catch (err) {
             return err
         }
     },
     get(id) {
-        return axios.get(`${RESOURCE_NAME}/${id}`);
+        return HTTP.get(`${RESOURCE_NAME}/${id}`);
     },
     post(data) {
-        return axios.post(RESOURCE_NAME, data);
+        return HTTP.post(RESOURCE_NAME, data);
     },
     put(data) {
-        return axios.put(`${RESOURCE_NAME}/${data._id}`, data);
+        return HTTP.put(`${RESOURCE_NAME}/${data._id}`, data);
     },
     delete(id) {
-        return axios.delete(`${RESOURCE_NAME}/${id}`);
+        return HTTP.delete(`${RESOURCE_NAME}/${id}`);
     },
 }

@@ -46,8 +46,8 @@ export default {
         login(){
             Auth.login(this.payload)
         }
-    }
 
+    }
 }
 </script>
 

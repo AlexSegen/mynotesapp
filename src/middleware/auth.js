@@ -1,28 +1,23 @@
-import axios from 'axios';
 import sysMsgs from '@/helpers/sys.messages';
+import HTTP from '@/services/config'
 
-const axiosConfig = {
-    baseURL: process.env.VUE_APP_AUTH_URL
-};
+let RESOURCE_NAME_LOGIN = '/auth/login'
 
-const HTTP = axios.create(axiosConfig);
-
-let RESOURCE_NAME_LOGIN = '/login'
-
-let RESOURCE_NAME_REGISTER = '/register'
+let RESOURCE_NAME_REGISTER = '/auth/register'
 
 export default {
 
     login(data){
-       return HTTP.post(RESOURCE_NAME_LOGIN, data).then(response => {
+
+       HTTP.post(RESOURCE_NAME_LOGIN, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
             window.location.href = '/'
-        }).catch(err => {
-            if(err.response.status == 401) {
+        }).catch(error => {
+            if(error.response.status == 401) {
                 sysMsgs.toastMsg('error', 'Datos incorrectos');
-            } else if (err.response.status == 404){ 
+            } else if (error.response.status == 404){ 
                 sysMsgs.toastMsg('error', 'Usuario no encontrado');
-            } else if (err.response.status == 500){ 
+            } else if (error.response.status == 500){ 
                 sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
             } else {
                 sysMsgs.toastMsg('error', 'Ocurrió un error. Reintenta mas tarde.');

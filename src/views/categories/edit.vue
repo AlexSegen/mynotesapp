@@ -52,10 +52,10 @@ export default {
     },
     mounted(){
         this.loading = true;
-        this.$store.dispatch("GET_CATEGORY", this.$route.params.id).then(res => {
+        this.$store.dispatch("GET_CATEGORY", this.$route.params.id).then(response => {
             this.loading = false;
-        }).catch(()=> {
-            sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
+        }).catch((error)=> {
+            sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + error.response);
         });
     },
     computed:{
@@ -77,8 +77,8 @@ export default {
             let  category = this.CATEGORY
             this.$store.dispatch("DELETE_CATEGORY", category).then(response => {
                 this.$router.push('/categories');
-            }).catch(err => {
-                sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response);
+            }).catch(error => {
+                sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + error.response);
             });
         }
     }
