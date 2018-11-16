@@ -44,9 +44,8 @@ const actions = {
     
   },
   GET_CATEGORY: async (context, payload) => {
-    return await categoryServices.get(payload).then(response => {
-      context.commit("SET_CATEGORY", response.data);
-    })
+    let { data } = await categoryServices.get(payload)
+    context.commit("SET_CATEGORY", data);
   },
   SAVE_CATEGORY: async (context, payload) => {
     return await categoryServices.post(payload).then(response => {

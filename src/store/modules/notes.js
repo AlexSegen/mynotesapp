@@ -38,10 +38,8 @@ const actions = {
       })
     },
     GET_NOTE: async (context, payload) => {
-      return await noteServices.get(payload).then(response => {
-        context.commit("SET_NOTE", response.data);
-      });
-      
+       let { data } = await noteServices.get(payload)
+       context.commit("SET_NOTE", data);
     },
     SAVE_NOTE: async (context, payload) => {
       return await noteServices.post(payload).then(response => {
