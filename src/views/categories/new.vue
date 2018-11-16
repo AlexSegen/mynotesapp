@@ -45,7 +45,8 @@ export default {
                 color:'',
                 picture:'' || 'http://placehold.it/64x64',
                 createdAt: now,
-                updatedAt: null
+                updatedAt: null,
+                userId: Auth.getUser().id
             }
         }
     },
@@ -64,7 +65,8 @@ export default {
                         color:'' || 'blue',
                         picture:'' || 'http://placehold.it/64x64',
                         createdAt: now,
-                        updatedAt: null
+                        updatedAt: null,
+                        userId: Auth.getUser().id
                     }
                 }).catch(err => {
                     this.loading = false;

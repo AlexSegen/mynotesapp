@@ -1,6 +1,6 @@
 import HTTP from '@/services/config'
 
-let RESOURCE_NAME = '/categories'
+let RESOURCE_NAME = '/categories/user'
 
 export default {
     getAll() {
