@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 
 //Views
+import Status from "./views/status/status.vue";
 import Login from "./views/login/login.vue";
 import Register from "./views/login/register.vue";
 import Account from "./views/account/index.vue";
@@ -18,6 +19,11 @@ Vue.use(Router);
 const router = new Router({
   mode: "history",
   routes: [
+    {
+      path: "/status",
+      name: "status",
+      component: Status
+    },
     {
       path: "/login",
       name: "login",

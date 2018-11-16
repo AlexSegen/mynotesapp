@@ -41,9 +41,10 @@ export default {
         });
     },
     loggedIn(){
-        let authenticated = JSON.stringify(localStorage.getItem("login"))
+        
+        let loggedIn = (localStorage.getItem("login") != null) ? true  : false
 
-        return 'hola';
+        return loggedIn;
     },
     getToken(){
         let data = '';
