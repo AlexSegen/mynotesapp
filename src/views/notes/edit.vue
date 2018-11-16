@@ -2,7 +2,7 @@
 <div>
     <div class="section-header">
         <div>
-            <h1>Nueva nota</h1>
+            <h1>Editar nota</h1>
             <span v-cloak>Creada: {{ moment(NOTE.createdAt).format('MMM Do YY') }}</span>
         </div>
         <div>

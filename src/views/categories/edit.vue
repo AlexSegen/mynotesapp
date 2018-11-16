@@ -43,7 +43,7 @@ export default {
             loading: false,
             category:{
                 title:'',
-                color:'' || 'blue',
+                color:'' || '#999999',
                 picture:'' || 'http://placehold.it/64x64',
                 createdAt: now,
                 updatedAt: null
