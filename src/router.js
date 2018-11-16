@@ -4,6 +4,7 @@ import Router from "vue-router";
 //Views
 import Login from "./views/login/login.vue";
 import Register from "./views/login/register.vue";
+import Account from "./views/account/index.vue";
 import Home from "./views/Home.vue";
 import Notes from "./views/notes/index.vue";
 import newNote from "./views/notes/new.vue";
@@ -28,9 +29,12 @@ const router = new Router({
       component: Register
     },
     {
-      path: "/home",
-      name: "home",
-      component: Home
+      path: "/account",
+      name: "account",
+      component: Account,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/",
