@@ -11,7 +11,8 @@
         <div class="section-body">
             <div class="login-form">
                 <form @submit.prevent="login()">
-                    <div class="fields">
+                    <spinner v-if="loading"/>
+                    <div v-show="!loading" class="fields">
                         <div class="form-group">
                             <label for="email">Correo electrónico</label>
                             <input type="email" class="form-control" v-model="payload.email">
@@ -32,10 +33,12 @@
 
 <script>
 import Auth from '@/middleware/auth'
+import sysMsgs from '@/helpers/sys.messages.js'
 export default {
     name:'login',
     data(){
         return {
+            loading: false,
             payload:{
                 email:'',
                 password:''
@@ -44,10 +47,28 @@ export default {
     },
     methods: {
         login(){
-            let payload = this.payload;
-            this.$store.dispatch('LOGIN', payload);
-        }
+            this.loading = true;
+            this.$store.dispatch('LOGIN', this.payload).catch(error => {
+                this.loading = false;
+                switch (error.response.status) {
+                    case 401:
+                    sysMsgs.toastMsg('error', 'Datos incorrectos');  
+                    break;
 
+                    case 404:
+                    sysMsgs.toastMsg('error', 'Usuario no encontrado');
+                    break;
+
+                    case 500:
+                    sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
+                    break;
+                
+                    default:
+                    sysMsgs.toastMsg('error', 'Ocurrió un error. Reintenta mas tarde.');
+                    break;
+                }
+            });
+        }
     }
 }
 </script>

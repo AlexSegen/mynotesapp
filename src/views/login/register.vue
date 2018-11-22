@@ -15,21 +15,25 @@
                 Ya puedes <router-link :to="{ name: 'login' }">iniciar sesión</router-link>.
               </div>
                 <form @submit.prevent="register()">
-                    <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" class="form-control" v-model="payload.name">
+                    <spinner v-if="loading"/>
+                    <div v-show="!loading" class="fields">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" v-model="payload.name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" class="form-control" v-model="payload.email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" class="form-control" v-model="payload.password">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Comenzar</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" class="form-control" v-model="payload.email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" class="form-control" v-model="payload.password">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Comenzar</button>
-                    </div>
+
                 </form>
             </div>
         </div>
@@ -38,11 +42,12 @@
 
 <script>
 import Auth from "@/middleware/auth.js";
-import sysMsgs from '@/helpers/sys.messages';
+import sysMsgs from "@/helpers/sys.messages";
 export default {
   name: "register",
   data() {
     return {
+      loading: false,
       success: false,
       payload: {
         name: "",
@@ -53,18 +58,25 @@ export default {
   },
   methods: {
     register() {
+     this.loading = true;
       Auth.register(this.payload)
         .then(response => {
+        this.loading = false;
           this.success = true;
           this.payload = {
             name: "",
             email: "",
             password: ""
-          }
-        }).catch(() => {
+          };
+        })
+        .catch(() => {
+        this.loading = false;
           err.response.status == 500
-            ? sysMsgs.toastMsg('error', 'Error al conectar con el servidor.')
-            : sysMsgs.toastMsg( "error", "Ocurrió un error. Reintenta mas tarde.");
+            ? sysMsgs.toastMsg("error", "Error al conectar con el servidor.")
+            : sysMsgs.toastMsg(
+                "error",
+                "Ocurrió un error. Reintenta mas tarde."
+              );
         });
     }
   }

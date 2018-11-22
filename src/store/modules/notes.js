@@ -2,7 +2,10 @@ import sysMsg from '@/helpers/sys.messages.js'
 import noteServices from "@/services/note.services";
 const state = {
     notes: null,
-    note: null
+    note: {
+        title:'',
+        createdAt: ''
+    }
 };
 const getters = {
     NOTES: state => {
