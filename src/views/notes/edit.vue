@@ -68,10 +68,8 @@ export default {
         }
     },
     mounted(){
-
-        this.getItem()
-        
-        this.$store.dispatch("GET_CATEGORIES")
+        //this.getItem()
+        //this.$store.dispatch("GET_CATEGORIES")
     },
     computed:{
         ...mapGetters(["NOTE", "CATEGORIES"])
@@ -103,9 +101,10 @@ export default {
         updateItem(){
             this.loading = true;
             if(this.validation()){ 
-                this.$store.dispatch("PUT_NOTE", this.NOTE).then(response => {
+                this.$store.dispatch("PUT_NOTE", this.NOTE).then(() => {
                     this.loading = false;
-                }).catch(err => {
+                }).catch(error => {
+                    console.log(error.response.status)
                     this.loading = false;
                 })
             } else {

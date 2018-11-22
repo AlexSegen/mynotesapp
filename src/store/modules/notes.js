@@ -4,7 +4,8 @@ const state = {
     notes: null,
     note: {
         title:'',
-        createdAt: ''
+        createdAt: '',
+        category: {}
     }
 };
 const getters = {
