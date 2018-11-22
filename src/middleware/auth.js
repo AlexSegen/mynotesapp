@@ -1,3 +1,5 @@
+import router from '@/router'
+import { store } from "@/store/";
 import HTTP from '@/services/config'
 import sysMsgs from '@/helpers/sys.messages';
 
@@ -11,13 +13,12 @@ export default {
       return HTTP.post(RESOURCE_NAME_LOGIN, data)
     },
     logout(){
-        localStorage.removeItem('login');
-        window.location.href = env.process.VUE_APP_BASE_URL + 'login'
+        store.commit("LOGOUT");
     },
     register(data){
         return HTTP.post(RESOURCE_NAME_REGISTER, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
-            window.location.href = env.process.VUE_APP_BASE_URL + 'login'
+            router.push({ name: ' login'})
         }).catch(err => {
             if (err.response.status == 500){ 
                 sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
@@ -26,32 +27,14 @@ export default {
             }
         });
     },
-    loggedIn(){
-        
-        let loggedIn = (localStorage.getItem("login") != null) ? true  : false
-
-        return loggedIn;
+    isLoggedIn(){
+        return store.state.authState.loggedIn
     },
     getToken(){
-        let data = '';
-        if (localStorage.getItem("login") == null) {
-            console.log('No token found');
-          } else {
-            data =  JSON.parse(localStorage.getItem('login'));
-          }
-        return data.token;
+        return store.state.authState.token
     },
     getUser(){
-        let data = {};
-        if (localStorage.getItem("login") == null) {
-            data.user = {
-                name: null,
-                email: null
-            }
-          } else {
-            data =  JSON.parse(localStorage.getItem('login'));
-          }
-        return data.user;
+        return store.state.authState.user
     }
 
 }

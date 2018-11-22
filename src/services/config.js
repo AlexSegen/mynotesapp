@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {store} from '@/store'
+import Auth from '@/middleware/auth'
 
 let loggedIn = (localStorage.getItem("login") != null) ? true : false;
 

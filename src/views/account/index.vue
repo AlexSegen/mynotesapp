@@ -36,10 +36,10 @@
 import Auth from '@/middleware/auth.js';
 export default {
   name:'account',
-  data(){
-    return {
-      user: Auth.getUser()
-    }
+  computed:{
+      user(){
+          return Auth.getUser()
+      }
   },
   methods:{
       logout(){

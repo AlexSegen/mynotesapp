@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import Auth from '@/middleware/auth'
 export default {
     name:'login',
     data(){

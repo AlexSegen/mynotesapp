@@ -23,13 +23,12 @@ export default {
   name:'navbar',
   computed:{
     user(){
-      return this.$store.state.authState.user
+      return Auth.getUser();
     }
   },
   methods:{
     logout(){
-      //Auth.logout();
-      this.$store.commit("LOGOUT");
+      Auth.logout();
     }
   }
 };

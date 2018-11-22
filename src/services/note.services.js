@@ -7,8 +7,8 @@ export default {
     getAll() {
         try {
             return HTTP.get(RESOURCE_NAME)
-        } catch (err) {
-            return err
+        } catch (error) {
+            console.log(error)
         }
     },
     get(id) {

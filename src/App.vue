@@ -7,6 +7,7 @@
   </div>
 </template>
 <script>
+import Auth from '@/middleware/auth'
 import Navbar from '@/components/partials/navbar'
 export default {
   name:'App',
@@ -15,7 +16,7 @@ export default {
   },
   computed:{
     loggedIn(){
-      return this.$store.state.authState.loggedIn
+      return Auth.isLoggedIn();
     }
   },
   mounted(){
