@@ -10,6 +10,10 @@
         </div>
         <div class="section-body">
             <div class="login-form">
+              <div v-if="success" class="alert alert-success">
+                <strong>¡Cuenta creada!</strong><br>
+                Ya puedes <router-link :to="{ name: 'login' }">iniciar sesión</router-link>.
+              </div>
                 <form @submit.prevent="register()">
                     <div class="form-group">
                         <label for="name">Nombre</label>
@@ -33,27 +37,39 @@
 </template>
 
 <script>
-import Auth from '@/middleware/auth.js';
+import Auth from "@/middleware/auth.js";
+import sysMsgs from '@/helpers/sys.messages';
 export default {
-    name:'register',
-    data(){
-        return {
-            payload:{
-                name:'',
-                email:'',
-                password:''
-            }
-        }
-    },
-    methods: {
-        register(){
-            Auth.register(this.payload);
-        }
+  name: "register",
+  data() {
+    return {
+      success: false,
+      payload: {
+        name: "",
+        email: "",
+        password: ""
+      }
+    };
+  },
+  methods: {
+    register() {
+      Auth.register(this.payload)
+        .then(response => {
+          this.success = true;
+          this.payload = {
+            name: "",
+            email: "",
+            password: ""
+          }
+        }).catch(() => {
+          err.response.status == 500
+            ? sysMsgs.toastMsg('error', 'Error al conectar con el servidor.')
+            : sysMsgs.toastMsg( "error", "Ocurrió un error. Reintenta mas tarde.");
+        });
     }
-
-}
+  }
+};
 </script>
 
 <style>
-
 </style>
