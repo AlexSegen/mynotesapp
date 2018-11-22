@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import Auth from '@/middleware/auth.js';
 export default {
     name:'login',
     data(){
@@ -44,7 +43,8 @@ export default {
     },
     methods: {
         login(){
-            Auth.login(this.payload)
+            let payload = this.payload;
+            this.$store.dispatch('LOGIN', payload);
         }
 
     }

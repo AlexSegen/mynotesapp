@@ -8,21 +8,7 @@ let RESOURCE_NAME_REGISTER = '/auth/register'
 export default {
 
     login(data){
-
-       HTTP.post(RESOURCE_NAME_LOGIN, data).then(response => {
-            localStorage.setItem('login', JSON.stringify(response.data));
-            window.location.href = env.process.VUE_APP_BASE_URL
-        }).catch(error => {
-            if(error.response.status == 401) {
-                sysMsgs.toastMsg('error', 'Datos incorrectos');
-            } else if (error.response.status == 404){ 
-                sysMsgs.toastMsg('error', 'Usuario no encontrado');
-            } else if (error.response.status == 500){ 
-                sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
-            } else {
-                sysMsgs.toastMsg('error', 'Ocurrió un error. Reintenta mas tarde.');
-            }
-        });
+      return HTTP.post(RESOURCE_NAME_LOGIN, data)
     },
     logout(){
         localStorage.removeItem('login');

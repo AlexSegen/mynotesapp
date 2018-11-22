@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navbar/>
+    <navbar v-if="loggedIn"/>
     <div class="mainwrapper">
       <router-view/>
     </div>
@@ -12,6 +12,14 @@ export default {
   name:'App',
   components:{
     Navbar
+  },
+  computed:{
+    loggedIn(){
+      return this.$store.state.authState.loggedIn
+    }
+  },
+  mounted(){
+    this.$store.dispatch("CHECK_AUTH");
   }
   
 }
