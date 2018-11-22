@@ -4,23 +4,28 @@ let RESOURCE_NAME = '/notes'
 
 
 export default {
+    checkToken(){
+        let session = localStorage.getItem("login");
+        HTTP.defaults.headers.common['Authorization'] = 'bearer ' + (session != null ? JSON.parse(session).token : false)
+    },
     getAll() {
-        try {
-            return HTTP.get(RESOURCE_NAME)
-        } catch (error) {
-            console.log(error)
-        }
+        this.checkToken();
+        return HTTP.get(RESOURCE_NAME)
     },
     get(id) {
+        this.checkToken();
         return HTTP.get(`${RESOURCE_NAME}/${id}`);
     },
     post(data) {
+        this.checkToken();
         return HTTP.post(RESOURCE_NAME, data);
     },
     put(data) {
+        this.checkToken();
         return HTTP.put(`${RESOURCE_NAME}/${data._id}`, data);
     },
     delete(id) {
+        this.checkToken();
         return HTTP.delete(`${RESOURCE_NAME}/${id}`);
     },
 }

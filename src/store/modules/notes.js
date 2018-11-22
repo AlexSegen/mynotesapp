@@ -48,13 +48,13 @@ const actions = {
       });
     },
     PUT_NOTE: async (context, payload) => {
-      return await noteServices.put(payload).then(response => {
+      return await noteServices.put(payload).then(() => {
           context.commit("UPDATE_NOTE", payload);
           sysMsg.toastMsg('success', 'Nota actualizada.');
       });
     },
     DELETE_NOTE: async (context, payload) => {
-      return await noteServices.delete(payload._id).then(response => {
+      return await noteServices.delete(payload._id).then(() => {
           context.commit(
               "REMOVE_NOTE", payload
           );

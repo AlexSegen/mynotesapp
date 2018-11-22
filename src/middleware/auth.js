@@ -9,14 +9,14 @@ let RESOURCE_NAME_REGISTER = '/auth/register'
 
 export default {
 
-    login(data){
-      return HTTP.post(RESOURCE_NAME_LOGIN, data)
+     login(data){
+      return  HTTP.post(RESOURCE_NAME_LOGIN, data)
     },
     logout(){
         store.commit("LOGOUT");
     },
-    register(data){
-        return HTTP.post(RESOURCE_NAME_REGISTER, data).then(response => {
+     register(data){
+        return  HTTP.post(RESOURCE_NAME_REGISTER, data).then(response => {
             localStorage.setItem('login', JSON.stringify(response.data));
             router.push({ name: ' login'})
         }).catch(err => {
@@ -27,14 +27,14 @@ export default {
             }
         });
     },
-    isLoggedIn(){
-        return store.state.authState.loggedIn
+     isLoggedIn(){
+        return  store.state.authState.loggedIn
     },
-    getToken(){
-        return store.state.authState.token
+     getToken(){
+        return  store.state.authState.token
     },
-    getUser(){
-        return store.state.authState.user
+     getUser(){
+        return  store.state.authState.user
     }
 
 }

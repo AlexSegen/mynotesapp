@@ -2,12 +2,7 @@ import sysMsg from '@/helpers/sys.messages.js'
 import categoryServices from "@/services/category.services";
 const state = {
   categories: null,
-  category: {
-    id: "" || 0,
-    title: "" || "Sin categoría",
-    icon: "" || "http://placehold.it/64x64",
-    created_at: ""
-  }
+  category: {}
 };
 const getters = {
   CATEGORIES: state => {

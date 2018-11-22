@@ -14,6 +14,9 @@ const getters = {
   },
   LOGGEDIN: state => {
     return state.loggedIn
+  },
+  TOKEN: state => {
+    return state.token
   }
 };
 const mutations = {
@@ -24,7 +27,7 @@ const mutations = {
     state.loggedIn = payload;
   },
   SET_TOKEN: (state, payload) => {
-    state.token = payload;
+    state.token = 'bearer ' + payload;
   },
   LOGOUT: (state) => {
     state.loggedIn = false;
@@ -42,17 +45,24 @@ const actions = {
       context.commit("SET_TOKEN", response.data.token);
       context.commit("SET_AUTH", true);
       router.push('/');
-      //window.location.href = '/'
     }).catch(error => {
       context.commit("SET_AUTH", false);
-      if (error.response.status == 401) {
-        sysMsgs.toastMsg('error', 'Datos incorrectos');
-      } else if (error.response.status == 404) {
-        sysMsgs.toastMsg('error', 'Usuario no encontrado');
-      } else if (error.response.status == 500) {
-        sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
-      } else {
+      switch (error.response.statu) {
+        case 401:
+          sysMsgs.toastMsg('error', 'Datos incorrectos');  
+          break;
+
+        case 404:
+          sysMsgs.toastMsg('error', 'Usuario no encontrado');
+          break;
+
+        case 500:
+          sysMsgs.toastMsg('error', 'Error al conectar con el servidor.');
+          break;
+    
+        default:
         sysMsgs.toastMsg('error', 'Ocurrió un error. Reintenta mas tarde.');
+          break;
       }
     });
 

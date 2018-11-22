@@ -9,8 +9,8 @@
             </div>
         </div>
         <div class="section-body">
-            <div v-if="error" class="alert alert-danger text-center">
-                Ocurrió un error 😪
+            <div v-if="error.value" class="alert alert-danger text-center">
+                😪 Error: {{ error.text }}
             </div>
             <spinner v-if="loading"/>
             <div v-else class="list-group">
@@ -45,18 +45,25 @@ export default {
         return {
             loading: false,
             categories:[],
-            error: false,
+            error: {
+                value: false,
+                text: ''
+            },
             uID: Auth.getUser().id
         }
     },
     mounted(){
         this.loading = true;
         this.$store.dispatch("GET_CATEGORIES").then(response => {
-            this.error = false;
+            this.error = {
+                value: false,
+                text: ''
+            };
             this.loading = false;
-        }).catch(err => {
+        }).catch(error => {
             this.loading = false;
-            this.error = true;
+            this.error.value = true;
+            this.error.text = error.response.data.message;
         });
     },
     computed:{
