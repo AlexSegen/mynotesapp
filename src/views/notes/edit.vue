@@ -68,8 +68,8 @@ export default {
         }
     },
     mounted(){
-        //this.getItem()
-        //this.$store.dispatch("GET_CATEGORIES")
+        this.$store.dispatch("GET_CATEGORIES")
+        this.$store.dispatch("GET_NOTE", this.$route.params.id)
     },
     computed:{
         ...mapGetters(["NOTE", "CATEGORIES"])
@@ -78,15 +78,6 @@ export default {
         validation(){
             let valid = this.NOTE.title.toString().trim() == '' || this.NOTE.content.toString().trim() == '' ? false : true
             return valid
-        },
-        async getItem(){
-            this.loading = true;
-            await this.$store.dispatch("GET_NOTE", this.$route.params.id).then(response => {
-                this.loading = false;
-            }).catch(err => {
-                sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err);
-                this.loading = false;
-            });
         },
         deleteItem(){
             let  note = this.NOTE
