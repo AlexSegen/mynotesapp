@@ -20,6 +20,14 @@ const router = new Router({
   mode: "history",
   routes: [
     {
+      path: "/",
+      name: "home",
+      component: Home,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/status",
       name: "status",
       component: Status
@@ -43,7 +51,7 @@ const router = new Router({
       }
     },
     {
-      path: "/",
+      path: "/notes",
       name: "notes",
       component: Notes,
       meta: {

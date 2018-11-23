@@ -1,7 +1,37 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <div class="section-header">
+            <div>
+                <h4>Bienvenido</h4>
+            </div>
+            <div>
+                
+            </div>
+        </div>
+
+        <div class="section-body">
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Notas</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <router-link :to="{ name: 'notes' }" class="card-link text-secondary">Ver todas</router-link>
+                <router-link :to="{ name: 'newnote' }" class="card-link text-success">Crear nueva</router-link>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Categorías</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <router-link :to="{ name: 'categories' }" class="card-link text-secondary">Ver todas</router-link>
+                <router-link :to="{ name: 'newcategory' }" class="card-link text-success">Crear nueva</router-link>
+              </div>
+            </div>
+
+        </div>
   </div>
 </template>
 
@@ -16,3 +46,9 @@ export default {
   }
 }
 </script>
+<style <style scoped>
+.card {
+  max-width: 310px;
+  margin: 10px auto;
+}
+</style>
