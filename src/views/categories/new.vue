@@ -17,11 +17,14 @@
                     <input id="title" type="text" class="form-control" v-model="category.title">
                 </div>
                 <div class="form-group">
-                    <label for="title">Color</label>
-                    <input id="title" type="text" class="form-control" placeholder="#4CAF50, #3F51B5, #f44336, ..." v-model="category.color">
+                    <label for="color" style="display:block;">Color</label>
+                    <input id="color" type="color" class="form-control color" placeholder="#4CAF50, #3F51B5, #f44336, ..." v-model="category.color">
+                    <div class="color-box" :style="'background:' + category.color"></div>
                 </div>
                 <input type="text" v-model="category.picture" hidden>
             </div>
+            <div class="clearfix"></div>
+            <br>
             <button type="submit" class="btn btn-success">AGREGAR</button>
         </form>
         
@@ -79,7 +82,3 @@ export default {
 
 }
 </script>
-
-<style>
-
-</style>
