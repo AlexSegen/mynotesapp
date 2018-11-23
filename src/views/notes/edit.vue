@@ -90,12 +90,16 @@ export default {
             });
         },
         updateItem(){
+
+            console.log(this.NOTE);
+            
+            return false 
+            
             this.loading = true;
             if(this.validation()){ 
                 this.$store.dispatch("PUT_NOTE", this.NOTE).then(() => {
                     this.loading = false;
                 }).catch(error => {
-                    console.log(error.response)
                     this.loading = false;
                 })
             } else {

@@ -61,8 +61,8 @@ export default {
                     this.loading = false;
                     this.category = {
                         title:'',
-                        color:'' || 'blue',
-                        picture:'' || 'http://placehold.it/64x64',
+                        color:'',
+                        picture:'',
                         createdAt: now,
                         updatedAt: null
                     }
