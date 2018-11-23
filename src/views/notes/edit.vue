@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label for="category">Categoría</label>
                     <select  id="category" class="form-control" v-model="NOTE.category.title">
-                        <option>{{ NOTE.category.title }}</option>
+                        <!-- <option>{{ NOTE.category.title }}</option> -->
                         <option v-for="item in CATEGORIES" :key="item.id" :value="item.title">{{ item.title }}</option>
                     </select>
                 </div>
