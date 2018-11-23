@@ -3,16 +3,22 @@ import App from './App.vue'
 import router from './router'
 import { store } from "./store/";
 
+
+//Vendors
 import Axios from 'axios';
 Axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 
+import vSelect from 'vue-select'
+Vue.use(vSelect);
+
+
 import moment from 'moment'
 Vue.prototype.moment = moment
 
-//Custom components Registration
+//Custom global components Registration
 import Spinner from './components/partials/spinner.vue'
 Vue.component('spinner', Spinner);
 

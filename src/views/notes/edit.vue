@@ -18,12 +18,20 @@
                     <label for="title">Título (*)</label>
                     <input id="title" type="text" class="form-control" v-model="NOTE.title">
                 </div>
-                <div class="form-group">
+<!--                 <div class="form-group">
                     <label for="category">Categoría</label>
                     <select  id="category" class="form-control" v-model="NOTE.category.title">
-                        <!-- <option>{{ NOTE.category.title }}</option> -->
                         <option v-for="item in CATEGORIES" :key="item.id" :value="item.title">{{ item.title }}</option>
                     </select>
+                </div> -->
+                <div class="form-group">
+                    <label for="category">Categoría</label>
+                    <v-select :options="CATEGORIES" label="title"  v-model="NOTE.category">
+                        <template slot="option" slot-scope="option">
+                            <li class="fa fa-circle" :style="'color:' + option.color"></li> 
+                            {{ option.title }}
+                        </template>
+                    </v-select>
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción (*)</label>
@@ -41,12 +49,16 @@
 
 <script>
 import moment from 'moment'
+import vSelect from 'vue-select'
 import { mapGetters } from "vuex";
 import Auth from '@/middleware/auth'
 import sysMsg from '@/helpers/sys.messages.js' 
 let now = moment().format('LLLL');
 export default {
     name:'editNote',
+    components:{
+        vSelect
+    },
     data(){
         return {
             loading:false,
@@ -81,13 +93,34 @@ export default {
             let  note = this.NOTE
             this.loading = true;
             this.$store.dispatch("DELETE_NOTE", note).then(response => {
-                this.$router.push('/');
+                this.$router.push({ name: 'notes'});
             }).catch(err => {
                 this.loading = false;
                 sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response);
             });
         },
-        updateItem(){           
+        updateItem(){
+
+            const categorySelected = this.CATEGORIES
+            .filter(cat => {
+                return cat._id === this.NOTE.category._id;
+            })
+            .map(cat => {
+                let arr = {
+                    title: cat.title,
+                    color: cat.color,
+                    picture: cat.picture
+                }
+                return arr;
+            });
+
+            this.NOTE.category = categorySelected[0];
+            
+            
+            /* console.log(this.NOTE)
+
+            return false  */
+            
             this.loading = true;
             if(this.validation()){ 
                 this.$store.dispatch("PUT_NOTE", this.NOTE).then(() => {

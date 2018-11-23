@@ -75,7 +75,7 @@ export default {
         deleteCategory() {
             let  category = this.CATEGORY
             this.$store.dispatch("DELETE_CATEGORY", category).then(response => {
-                this.$router.push('/categories');
+                this.$router.push({ name: 'categories'});
             }).catch(error => {
                 sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + error.response);
             });

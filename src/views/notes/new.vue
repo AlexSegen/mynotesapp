@@ -18,11 +18,21 @@
                     <label for="title">Título (*)</label>
                     <input id="title" type="text" class="form-control" v-model="note.title">
                 </div>
-                <div class="form-group">
+               <!--  <div class="form-group">
                     <label for="category">Categoría</label>
                     <select  id="category" class="form-control" v-model="note.category">
                         <option v-for="item in CATEGORIES" :key="item._id" :value="item">{{ item.title }}</option>
                     </select>
+                </div> -->
+
+                <div class="form-group">
+                    <label for="category">Categoría</label>
+                    <v-select :options="CATEGORIES" label="title"  v-model="note.category">
+                        <template slot="option" slot-scope="option">
+                            <li class="fa fa-circle" :style="'color:' + option.color"></li> 
+                            {{ option.title }}
+                        </template>
+                    </v-select>
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción (*)</label>
@@ -38,12 +48,16 @@
 
 <script>
 import moment from 'moment'
+import vSelect from 'vue-select'
 import { mapGetters } from "vuex";
 import Auth from '@/middleware/auth'
 import sysMsg from '@/helpers/sys.messages.js' 
 let now = moment();
 export default {
     name:'newNote',
+    components: {
+        vSelect
+    },
     data(){
         return {
             loading:false,
@@ -97,10 +111,8 @@ export default {
 
             this.note.category = categorySelected[0];
 
-
             if(this.validation()){
-                
-                
+               
                 this.$store.dispatch("SAVE_NOTE", this.note).then(response => {
                     this.loading = false;
                     this.note = {
@@ -120,6 +132,7 @@ export default {
 
             } else {
                  sysMsg.toastMsg('warning', 'Rellena los cambos requeridos.');
+                 this.loading = false;
             }
         }
     }
