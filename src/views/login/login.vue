@@ -49,6 +49,7 @@ export default {
         login(){
             this.loading = true;
             this.$store.dispatch('LOGIN', this.payload).catch(error => {
+                this.payload.password = ''
                 this.loading = false;
                 switch (error.response.status) {
                     case 401:

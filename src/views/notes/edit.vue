@@ -89,12 +89,7 @@ export default {
                 sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response);
             });
         },
-        updateItem(){
-
-            console.log(this.NOTE);
-            
-            return false 
-            
+        updateItem(){           
             this.loading = true;
             if(this.validation()){ 
                 this.$store.dispatch("PUT_NOTE", this.NOTE).then(() => {
