@@ -35,10 +35,8 @@
 
 
 <script>
-import _ from 'underscore';
 import { mapGetters } from "vuex";
 import Auth from '@/middleware/auth';
-import categoryServices from '@/services/category.services';
 export default {
     name:'categories',
     data(){

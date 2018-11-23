@@ -37,7 +37,6 @@
 <script>
 import { mapGetters } from "vuex";
 import Auth from '@/middleware/auth'
-import noteServices from '@/services/note.services';
 export default {
     name:'notes',
     data(){

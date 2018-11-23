@@ -33,7 +33,6 @@
 import moment from 'moment'
 import Auth from '@/middleware/auth'
 import sysMsg from '@/helpers/sys.messages.js' 
-import categoryServices from '@/services/category.services';
 let now = moment();
 export default {
     name:'newCategory',
