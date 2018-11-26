@@ -18,13 +18,6 @@
                     <label for="title">Título (*)</label>
                     <input id="title" type="text" class="form-control" v-model="note.title">
                 </div>
-               <!--  <div class="form-group">
-                    <label for="category">Categoría</label>
-                    <select  id="category" class="form-control" v-model="note.category">
-                        <option v-for="item in CATEGORIES" :key="item._id" :value="item">{{ item.title }}</option>
-                    </select>
-                </div> -->
-
                 <div class="form-group">
                     <label for="category">Categoría</label>
                     <v-select :options="CATEGORIES" label="title"  v-model="note.category">

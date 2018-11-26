@@ -18,12 +18,6 @@
                     <label for="title">Título (*)</label>
                     <input id="title" type="text" class="form-control" v-model="NOTE.title">
                 </div>
-<!--                 <div class="form-group">
-                    <label for="category">Categoría</label>
-                    <select  id="category" class="form-control" v-model="NOTE.category.title">
-                        <option v-for="item in CATEGORIES" :key="item.id" :value="item.title">{{ item.title }}</option>
-                    </select>
-                </div> -->
                 <div class="form-group">
                     <label for="category">Categoría</label>
                     <v-select :options="CATEGORIES" label="title"  v-model="NOTE.category">
@@ -99,28 +93,7 @@ export default {
                 sysMsg.toastMsg('error', 'Ha ocurrido un problema. ' + err.response);
             });
         },
-        updateItem(){
-
-            const categorySelected = this.CATEGORIES
-            .filter(cat => {
-                return cat._id === this.NOTE.category._id;
-            })
-            .map(cat => {
-                let arr = {
-                    title: cat.title,
-                    color: cat.color,
-                    picture: cat.picture
-                }
-                return arr;
-            });
-
-            this.NOTE.category = categorySelected[0];
-            
-            
-            /* console.log(this.NOTE)
-
-            return false  */
-            
+        updateItem(){          
             this.loading = true;
             if(this.validation()){ 
                 this.$store.dispatch("PUT_NOTE", this.NOTE).then(() => {
