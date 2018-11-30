@@ -18,6 +18,10 @@ Vue.use(vSelect);
 import moment from 'moment'
 Vue.prototype.moment = moment
 
+//import bootstrap from './assets/vendor/bootstrap/bootstrap'
+
+
+
 //Custom global components Registration
 import Spinner from './components/partials/spinner.vue'
 Vue.component('spinner', Spinner);
@@ -25,10 +29,11 @@ Vue.component('spinner', Spinner);
 //Vendors
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './assets/vendor/nucleo/css/nucleo.css'
 import 'font-awesome/scss/font-awesome.scss'
 import 'toastr/toastr.scss'
 
-import './assets/scss/app.scss';
+import './assets/argon/main.scss';
 
 Vue.config.productionTip = false
 

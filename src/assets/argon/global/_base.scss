@@ -1,0 +1,20 @@
+.section-header {
+  display: flex;
+  padding: 5px 10px;
+  position: relative;
+  div {
+    padding: 4px;
+    width: 100%;
+    &:last-child{
+      text-align: right;
+    }
+  }
+  h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+}
+.section-body {
+  position: relative;
+  padding: 5px 10px;
+}
