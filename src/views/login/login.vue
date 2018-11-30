@@ -1,34 +1,57 @@
 <template>
-    <div>
-        <div class="section-header">
-            <div>
-                <h1>Inicia sesión</h1>
-            </div>
-            <div>
-                <router-link :to="{ name: 'register' }" class="btn btn-link">Registrarse</router-link>
-            </div>
-        </div>
-        <div class="section-body">
-            <div class="login-form">
-                <form @submit.prevent="login()">
+        <div class="row justify-content-center">
+          <div class="col-lg-5">
+            <div class="card bg-secondary shadow border-0">
+              <div class="card-body px-lg-5 py-lg-5">
+                <div class="text-center text-muted mb-4">
+                  <small>Bienvenido a Notes</small>
+                </div>
+                <form role="form" @submit.prevent="login()">
                     <spinner v-if="loading"/>
                     <div v-show="!loading" class="fields">
-                        <div class="form-group">
-                            <label for="email">Correo electrónico</label>
-                            <input type="email" class="form-control" v-model="payload.email">
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Tu correo electrónico" type="email" v-model="payload.email" required>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="password">Contraseña</label>
-                            <input type="password" class="form-control" v-model="payload.password">
+                            <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Tu contraseña" type="password" v-model="payload.password" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Entrar</button>
+                        <div class="custom-control custom-control-alternative custom-checkbox">
+                            <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                            <label class="custom-control-label" for=" customCheckLogin">
+                            <span>Recordar contraseña</span>
+                            </label>
                         </div>
                     </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary my-4" :disabled="loading">Iniciar sesión</button>
+                  </div>
                 </form>
+              </div>
             </div>
+            <div class="row mt-3">
+              <div class="col-6">
+                <a href="javascript:void(0);" class="text-light">
+                  <small>¿Olvidaste tu contraseña?</small>
+                </a>
+              </div>
+              <div class="col-6 text-right">
+                <router-link :to="{ name: 'register' }" class="text-light">
+                  <small>¡Únete ahora!</small>
+                </router-link>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
 </template>
 
 <script>

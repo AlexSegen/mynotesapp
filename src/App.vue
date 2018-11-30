@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <navbar v-if="loggedIn"/>
-    <div class="mainwrapper">
-      <router-view/>
-    </div>
+    <main class="1section section-shaped">
+      <div class="container pt-lg-md">
+        <router-view/>
+      </div>   
+    </main>  
   </div>
 </template>
 <script>

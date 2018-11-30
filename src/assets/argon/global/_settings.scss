@@ -2,7 +2,7 @@
 $percent-value: 10%;
 
 //Theme Colors
-$theme: #03B5A5;
+$theme: #5e72e4;
 $theme02: #FF5722; 
 $theme03: #2196F3;
 $theme04:#E91E63;
@@ -13,10 +13,10 @@ $gray-theme: #666;
 
 //Bootstrap Colors
 $primary-theme: #03B5A5;
-$success-theme: #8BC34A;
-$warning-theme: #FBC02D;
-$danger-theme: #f44336;
-$info-theme: #2196F3;
+$success-theme: #2dce89;
+$warning-theme: #ffd600;
+$danger-theme: #f5365c;
+$info-theme: #11cdef;
 
 //Colors manipulation
 $theme-lighten: lighten($theme, $percent-value);

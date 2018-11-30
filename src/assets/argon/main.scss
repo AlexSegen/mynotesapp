@@ -21,6 +21,7 @@
 @import "bootstrap/functions";
 @import "custom/functions";
 
+@import 'global/settings';
 @import "custom/variables";
 @import "bootstrap/variables";
 
@@ -95,7 +96,6 @@
 @import "custom/type.scss";
 
 //Global Components
-@import 'global/settings';
 @import 'global/base';
 @import 'modules/text-theme';
 @import 'modules/bg-theme';

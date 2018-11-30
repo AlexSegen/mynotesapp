@@ -1,5 +1,5 @@
 <template>
-    <div>
+      <div class="row justify-content-center">
         <div class="section-header">
             <div>
                 <h1>Notas</h1>
@@ -31,7 +31,7 @@
                 </template>
             </ul>
         </div>
-        </div>
+      </div>
 </template>
 
 <script>
