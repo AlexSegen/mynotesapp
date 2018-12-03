@@ -17,4 +17,10 @@
         background: -webkit-linear-gradient(to right, $success-theme, lighten($success-theme, 5%));  /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to right, $success-theme, lighten($success-theme, 10%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
+
+    &.tasks {
+        background: $danger-theme;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, $danger-theme, lighten($danger-theme, 5%));  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, $danger-theme, lighten($danger-theme, 10%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 }
